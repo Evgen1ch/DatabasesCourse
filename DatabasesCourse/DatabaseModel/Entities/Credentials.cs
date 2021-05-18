@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DatabasesCourse.DatabaseModel.Entities
 {
-    enum Role
+    public enum Role
     {
         Employee,
         Manager,
         Admin
     }
-    class Credentials
+    public class Credentials
     {
         public int Id { get; set; }
         public string Email { get; set; }

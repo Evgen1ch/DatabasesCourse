@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabasesCourse.DatabaseModel.Entities
 {
-    class Order
+    public class Order
     {
         public int Id { get; set; }
         public decimal TotalCost { get; set; }

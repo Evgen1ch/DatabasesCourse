@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DatabasesCourse.DatabaseModel
 {
-    class DatabaseContext: DbContext
+    public class DatabaseContext: DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Credentials> Credentials { get; set; }

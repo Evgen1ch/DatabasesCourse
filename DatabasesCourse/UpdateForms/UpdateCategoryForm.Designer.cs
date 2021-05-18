@@ -29,12 +29,70 @@ namespace DatabasesCourse.UpdateForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.labelCategoryName = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonSubmit = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // labelCategoryName
+            // 
+            this.labelCategoryName.AutoSize = true;
+            this.labelCategoryName.Location = new System.Drawing.Point(14, 16);
+            this.labelCategoryName.Name = "labelCategoryName";
+            this.labelCategoryName.Size = new System.Drawing.Size(93, 15);
+            this.labelCategoryName.TabIndex = 23;
+            this.labelCategoryName.Text = "Category Name:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(113, 13);
+            this.textBox1.MaxLength = 100;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(259, 23);
+            this.textBox1.TabIndex = 22;
+            // 
+            // buttonSubmit
+            // 
+            this.buttonSubmit.Location = new System.Drawing.Point(297, 56);
+            this.buttonSubmit.Name = "buttonSubmit";
+            this.buttonSubmit.Size = new System.Drawing.Size(75, 23);
+            this.buttonSubmit.TabIndex = 21;
+            this.buttonSubmit.Text = "Submit";
+            this.buttonSubmit.UseVisualStyleBackColor = true;
+            this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(216, 56);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 20;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // UpdateCategoryForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(384, 91);
+            this.Controls.Add(this.labelCategoryName);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.buttonSubmit);
+            this.Controls.Add(this.buttonCancel);
+            this.Name = "UpdateCategoryForm";
             this.Text = "UpdateCategoryForm";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label labelCategoryName;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonSubmit;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
