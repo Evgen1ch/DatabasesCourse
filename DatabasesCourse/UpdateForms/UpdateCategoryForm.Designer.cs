@@ -83,6 +83,7 @@ namespace DatabasesCourse.UpdateForms
             this.Controls.Add(this.buttonCancel);
             this.Name = "UpdateCategoryForm";
             this.Text = "UpdateCategoryForm";
+            this.Load += new System.EventHandler(this.UpdateCategoryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

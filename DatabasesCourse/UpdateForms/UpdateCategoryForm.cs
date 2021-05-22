@@ -63,5 +63,10 @@ namespace DatabasesCourse.UpdateForms
             this.DialogResult = DialogResult.Abort;
             this.Close();
         }
+
+        private void UpdateCategoryForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

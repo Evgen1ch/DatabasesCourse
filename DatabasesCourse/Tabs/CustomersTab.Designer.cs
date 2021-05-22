@@ -33,12 +33,23 @@ namespace DatabasesCourse.Tabs
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.panelSearch = new System.Windows.Forms.Panel();
+            this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelSearchFirstname = new System.Windows.Forms.Label();
+            this.labelSearchPhone = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.labelSearchLastname = new System.Windows.Forms.Label();
             this.dgvTable = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateRegistered = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonApplyFilters = new System.Windows.Forms.Button();
+            this.buttonReset = new System.Windows.Forms.Button();
+            this.panelSearch.SuspendLayout();
+            this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,12 +93,80 @@ namespace DatabasesCourse.Tabs
             // 
             this.panelSearch.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panelSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSearch.Controls.Add(this.buttonReset);
+            this.panelSearch.Controls.Add(this.groupBoxFilter);
             this.panelSearch.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelSearch.Location = new System.Drawing.Point(384, 0);
             this.panelSearch.Margin = new System.Windows.Forms.Padding(0);
             this.panelSearch.Name = "panelSearch";
             this.panelSearch.Size = new System.Drawing.Size(200, 421);
             this.panelSearch.TabIndex = 11;
+            // 
+            // groupBoxFilter
+            // 
+            this.groupBoxFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.groupBoxFilter.Controls.Add(this.buttonApplyFilters);
+            this.groupBoxFilter.Controls.Add(this.textBox1);
+            this.groupBoxFilter.Controls.Add(this.labelSearchFirstname);
+            this.groupBoxFilter.Controls.Add(this.labelSearchPhone);
+            this.groupBoxFilter.Controls.Add(this.textBox3);
+            this.groupBoxFilter.Controls.Add(this.textBox2);
+            this.groupBoxFilter.Controls.Add(this.labelSearchLastname);
+            this.groupBoxFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBoxFilter.Location = new System.Drawing.Point(2, 16);
+            this.groupBoxFilter.Name = "groupBoxFilter";
+            this.groupBoxFilter.Size = new System.Drawing.Size(185, 226);
+            this.groupBoxFilter.TabIndex = 6;
+            this.groupBoxFilter.TabStop = false;
+            this.groupBoxFilter.Text = "Filters";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(11, 44);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(168, 23);
+            this.textBox1.TabIndex = 0;
+            // 
+            // labelSearchFirstname
+            // 
+            this.labelSearchFirstname.AutoSize = true;
+            this.labelSearchFirstname.Location = new System.Drawing.Point(11, 133);
+            this.labelSearchFirstname.Name = "labelSearchFirstname";
+            this.labelSearchFirstname.Size = new System.Drawing.Size(65, 15);
+            this.labelSearchFirstname.TabIndex = 5;
+            this.labelSearchFirstname.Text = "First name:";
+            // 
+            // labelSearchPhone
+            // 
+            this.labelSearchPhone.AutoSize = true;
+            this.labelSearchPhone.Location = new System.Drawing.Point(11, 26);
+            this.labelSearchPhone.Name = "labelSearchPhone";
+            this.labelSearchPhone.Size = new System.Drawing.Size(89, 15);
+            this.labelSearchPhone.TabIndex = 1;
+            this.labelSearchPhone.Text = "Phone number:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(11, 151);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(168, 23);
+            this.textBox3.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(11, 97);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(168, 23);
+            this.textBox2.TabIndex = 2;
+            // 
+            // labelSearchLastname
+            // 
+            this.labelSearchLastname.AutoSize = true;
+            this.labelSearchLastname.Location = new System.Drawing.Point(11, 79);
+            this.labelSearchLastname.Name = "labelSearchLastname";
+            this.labelSearchLastname.Size = new System.Drawing.Size(64, 15);
+            this.labelSearchLastname.TabIndex = 3;
+            this.labelSearchLastname.Text = "Last name:";
             // 
             // dgvTable
             // 
@@ -151,6 +230,26 @@ namespace DatabasesCourse.Tabs
             this.DateRegistered.Name = "DateRegistered";
             this.DateRegistered.ReadOnly = true;
             // 
+            // buttonApplyFilters
+            // 
+            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 197);
+            this.buttonApplyFilters.Name = "buttonApplyFilters";
+            this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
+            this.buttonApplyFilters.TabIndex = 6;
+            this.buttonApplyFilters.Text = "Apply";
+            this.buttonApplyFilters.UseVisualStyleBackColor = true;
+            this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(106, 248);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 7;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // CustomersTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -162,6 +261,9 @@ namespace DatabasesCourse.Tabs
             this.Controls.Add(this.panelSearch);
             this.Name = "CustomersTab";
             this.Size = new System.Drawing.Size(584, 421);
+            this.panelSearch.ResumeLayout(false);
+            this.groupBoxFilter.ResumeLayout(false);
+            this.groupBoxFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.ResumeLayout(false);
 
@@ -179,5 +281,14 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.DataGridViewTextBoxColumn LastName;
         private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateRegistered;
+        private System.Windows.Forms.GroupBox groupBoxFilter;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelSearchFirstname;
+        private System.Windows.Forms.Label labelSearchPhone;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label labelSearchLastname;
+        private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.Button buttonApplyFilters;
     }
 }

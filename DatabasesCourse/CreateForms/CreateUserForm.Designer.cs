@@ -179,6 +179,7 @@ namespace DatabasesCourse.CreateForms
             this.Controls.Add(this.buttonCancel);
             this.Name = "CreateUserForm";
             this.Text = "CreateUserForm";
+            this.Load += new System.EventHandler(this.CreateUserForm_Load);
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
             this.ResumeLayout(false);

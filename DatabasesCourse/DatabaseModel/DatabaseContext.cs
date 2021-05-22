@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DatabasesCourse.DatabaseModel.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,10 @@ namespace DatabasesCourse.DatabaseModel
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrdersProducts { get; set; }
 
         public DatabaseContext()
         {
-            Console.WriteLine("Creating context");
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -73,6 +73,7 @@ namespace DatabasesCourse.DatabaseModel
             builder.Entity<Category>()
                 .Property(c=>c.Name).IsRequired().HasMaxLength(100);
 
+
             //Product Entity
             //todo make double key id-barcode
             builder.Entity<Product>()
@@ -85,8 +86,6 @@ namespace DatabasesCourse.DatabaseModel
                 .Property(p => p.Price).IsRequired().HasColumnType("money");
             builder.Entity<Product>()
                 .Property(p => p.Amount).IsRequired().HasDefaultValue(0);
-            //builder.Entity<Product>().HasKey(p => new {p.Id, p.BarCode});
-            //builder.Entity<Product>().Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Entity<Product>().HasIndex(p => p.BarCode).IsUnique();
 
 
@@ -109,6 +108,43 @@ namespace DatabasesCourse.DatabaseModel
                 .OnDelete(DeleteBehavior.SetNull);
             //todo configure tables columns. day after: I dont understand what i tried to say ))
             
+
+            builder
+                .Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithMany(p => p.Orders)
+                .UsingEntity<OrderProduct>(
+                    j=>j
+                        .HasOne(op=>op.Product)
+                        .WithMany(p=>p.OrdersProducts)
+                        .HasForeignKey(op=>op.ProductId),
+                    j=>j
+                        .HasOne(op=>op.Order)
+                        .WithMany(o=>o.OrdersProducts)
+                        .HasForeignKey(op=>op.OrderId),
+                    j =>
+                    {
+                        j.HasKey(op => new {op.OrderId, op.ProductId});
+                        j.ToTable("OrderProduct");
+                    }
+                );
+
+            //Initial Data
+            Credentials c1 = new Credentials { Id = 1, Email = "qwerty1@gmail.com", Password = "qwerty1", Role = Role.Employee};
+            Credentials c2 = new Credentials { Id = 2, Email = "qwerty2@gmail.com", Password = "qwerty2", Role = Role.Manager};
+            Credentials c3 = new Credentials { Id = 3, Email = "qwerty3@gmail.com", Password = "qwerty3", Role = Role.Admin};
+
+            User u1 = new User { Id = 1, FirstName = "Employee", LastName = "Employee"};
+            User u2 = new User { Id = 2, FirstName = "Manager", LastName = "Manager"};
+            User u3 = new User { Id = 3, FirstName = "Admin", LastName = "Admin"};
+            
+            c1.UserId = u1.Id;
+            c2.UserId = u2.Id; 
+            c3.UserId = u3.Id;
+
+            builder.Entity<Credentials>().HasData(new List<Credentials>{c1,c2,c3});
+            builder.Entity<User>().HasData(new List<User> {u1,u2,u3});
+
         }
     }
 }

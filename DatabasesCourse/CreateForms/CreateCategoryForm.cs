@@ -62,5 +62,10 @@ namespace DatabasesCourse.CreateForms
                 this.Close();
             }
         }
+
+        private void CreateCategoryForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

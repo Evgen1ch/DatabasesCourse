@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.Tabs;
 
 namespace DatabasesCourse
@@ -14,11 +14,17 @@ namespace DatabasesCourse
         public MainForm()
         {
             InitializeComponent();
+            buttonUsers.Visible = buttonUsers.Enabled = false;
+            buttonCategories.Visible = buttonCategories.Enabled = false;
+            buttonStat1.Visible = buttonStat1.Enabled = false;
+            buttonCustomers.Visible = buttonCustomers.Enabled = false;
+            buttonOrders.Visible = buttonOrders.Enabled = false;
+            buttonProducts.Visible = buttonProducts.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            Login();
 
             _tabs = new List<Control>
             {
@@ -27,10 +33,8 @@ namespace DatabasesCourse
                 ordersTab,
                 customersTab,
                 usersTab,
+                statisticsTab,
             };
-
-            //_db = new DatabaseContext();
-            //_db.Products.Load();
         }
 
         public void HideTabs()
@@ -99,12 +103,75 @@ namespace DatabasesCourse
 
         private void buttonStat1_Click(object sender, EventArgs e)
         {
-
+            ToggleTab(statisticsTab);
         }
 
-        private void buttonStat2_Click(object sender, EventArgs e)
+        private void buttonLogout_Click(object sender, EventArgs e)
         {
+            HideTabs();
+            Global.CurrentUser = null;
+            Login();
+        }
 
+        private void Login()
+        {
+            HideButtons();
+            LoginForm loginForm = new LoginForm();
+            var result = loginForm.ShowDialog();
+
+            if (result != DialogResult.OK)
+            {
+                this.Close();
+                return;
+            }
+
+            Role role = Global.CurrentUser.Credentials.Role;
+            
+            switch (role)
+            {
+                case Role.Employee:
+                    buttonUsers.Visible = buttonUsers.Enabled = false;
+                    buttonCategories.Visible = buttonCategories.Enabled = false;
+                    buttonStat1.Visible = buttonStat1.Enabled = false;
+
+                    buttonCustomers.Visible = buttonCustomers.Enabled = true;
+                    buttonOrders.Visible = buttonOrders.Enabled = true;
+                    buttonProducts.Visible = buttonProducts.Enabled = true;
+                    break;
+                case Role.Manager:
+
+                    buttonUsers.Visible = buttonUsers.Enabled = false;
+                    buttonStat1.Visible = buttonStat1.Enabled = false;
+
+                    buttonCategories.Visible = buttonCategories.Enabled = true;
+                    buttonCustomers.Visible = buttonCustomers.Enabled = true;
+                    buttonOrders.Visible = buttonOrders.Enabled = true;
+                    buttonProducts.Visible = buttonProducts.Enabled = true;
+                    break;
+                case Role.Admin:
+                    buttonStat1.Visible = buttonStat1.Enabled = true;
+                    buttonUsers.Visible = buttonUsers.Enabled = true;
+
+                    buttonCategories.Visible = buttonCategories.Enabled = true;
+                    buttonCustomers.Visible = buttonCustomers.Enabled = true;
+                    buttonOrders.Visible = buttonOrders.Enabled = true;
+                    buttonProducts.Visible = buttonProducts.Enabled = true;
+                    break;
+            }
+            ordersTab.SetUserView();
+            productsTab.SetUserView();
+            labelCurrentUserInfo.Text = Global.CurrentUser.FirstName + @" " + Global.CurrentUser.LastName + @". Role: " +
+                                        Global.CurrentUser.Credentials.Role;
+        }
+
+        private void HideButtons()
+        {
+            buttonStat1.Visible = buttonStat1.Enabled = false;
+            buttonUsers.Visible = buttonUsers.Enabled = false;
+            buttonCategories.Visible = buttonCategories.Enabled = false;
+            buttonCustomers.Visible = buttonCustomers.Enabled = false;
+            buttonOrders.Visible = buttonOrders.Enabled = false;
+            buttonProducts.Visible = buttonProducts.Enabled = false;
         }
     }
 }

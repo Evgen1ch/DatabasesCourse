@@ -66,7 +66,7 @@ namespace DatabasesCourse.Tabs
                 id = Convert.ToInt32(dgvTable.CurrentRow?.Cells["Id"].Value);
             }
 
-            if (id == -1) return;
+            if (id < 1) return;
 
             var result = MessageBox.Show($@"Are you sure you want ot delete entry with id = {id}");
             if (result == DialogResult.OK)

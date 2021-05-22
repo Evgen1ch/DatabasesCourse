@@ -147,6 +147,7 @@ namespace DatabasesCourse.CreateForms
             this.Controls.Add(this.buttonCancel);
             this.Name = "CreateCustomerForm";
             this.Text = "CreateCustomerForm";
+            this.Load += new System.EventHandler(this.CreateCustomerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

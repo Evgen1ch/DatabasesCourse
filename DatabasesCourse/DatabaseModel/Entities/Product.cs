@@ -21,5 +21,7 @@ namespace DatabasesCourse.DatabaseModel.Entities
         public int Amount { get; set; }
         [Browsable(false)]
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+        [Browsable(false)]
+        public ICollection<OrderProduct> OrdersProducts { get; set; } = new List<OrderProduct>();
     }
 }

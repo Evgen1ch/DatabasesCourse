@@ -202,6 +202,7 @@ namespace DatabasesCourse.CreateForms
             this.Controls.Add(this.textBoxBarcode);
             this.Name = "CreateProductForm";
             this.Text = "CreateProductForm";
+            this.Load += new System.EventHandler(this.CreateProductForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).EndInit();
             this.ResumeLayout(false);

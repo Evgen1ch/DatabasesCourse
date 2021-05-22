@@ -92,5 +92,10 @@ namespace DatabasesCourse.UpdateForms
                 e.Handled = true;
             }
         }
+
+        private void UpdateProductForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

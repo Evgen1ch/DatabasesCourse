@@ -64,6 +64,9 @@ namespace DatabasesCourse.UpdateForms
             this.Close();
         }
 
-       
+        private void UpdateCustomerForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

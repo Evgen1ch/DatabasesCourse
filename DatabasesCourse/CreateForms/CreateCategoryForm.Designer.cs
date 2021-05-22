@@ -83,6 +83,7 @@ namespace DatabasesCourse.CreateForms
             this.Controls.Add(this.buttonCancel);
             this.Name = "CreateCategoryForm";
             this.Text = "CreateCategoryForm";
+            this.Load += new System.EventHandler(this.CreateCategoryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

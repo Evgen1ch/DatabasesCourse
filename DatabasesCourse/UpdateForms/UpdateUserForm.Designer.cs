@@ -175,6 +175,7 @@ namespace DatabasesCourse.UpdateForms
             this.Controls.Add(this.labelFirstName);
             this.Name = "UpdateUserForm";
             this.Text = "UpdateUserForm";
+            this.Load += new System.EventHandler(this.UpdateUserForm_Load);
             this.groupBoxCredentials.ResumeLayout(false);
             this.groupBoxCredentials.PerformLayout();
             this.ResumeLayout(false);

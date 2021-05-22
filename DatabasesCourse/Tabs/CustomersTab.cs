@@ -80,15 +80,48 @@ namespace DatabasesCourse.Tabs
                 id = Convert.ToInt32(dgvTable.CurrentRow?.Cells["Id"].Value);
             }
 
-            if (id == -1) return;
+            if (id < 1) return;
 
             var result = MessageBox.Show($@"Are you sure you want ot delete entry with id = {id}");
             if (result == DialogResult.OK)
             {
-                Context.Customers.Remove(Context.Customers.FirstOrDefault(c => c.Id == id));
-                Context.SaveChanges();
-                UpdateDataGridView();
+                var toDelete = Context.Customers.FirstOrDefault(c => c.Id == id);
+                if (toDelete != null)
+                {
+                    Context.Customers.Remove(toDelete);
+                    Context.SaveChanges();
+                    UpdateDataGridView();
+                }
             }
+        }
+
+        private void buttonApplyFilters_Click(object sender, EventArgs e)
+        {
+            string phone = textBox1.Text.Trim();
+            string last = textBox2.Text.Trim();
+            string first = textBox3.Text.Trim();
+
+            var data = Context.Customers.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(phone))
+            {
+                data = data.Where(c => c.PhoneNumber.Contains(phone));
+            }
+            if (!string.IsNullOrEmpty(last))
+            {
+                data = data.Where(c => c.LastName.Contains(last));
+            }
+            if (!string.IsNullOrEmpty(first))
+            {
+                data = data.Where(c => c.FirstName.Contains(first));
+            }
+
+            dgvTable.DataSource = data.ToList();
+        }
+
+        private void buttonReset_Click(object sender, EventArgs e)
+        {
+            dgvTable.DataSource = Context.Customers.Local.ToBindingList();
         }
     }
 }

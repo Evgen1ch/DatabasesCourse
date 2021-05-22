@@ -84,5 +84,10 @@ namespace DatabasesCourse.CreateForms
                 this.Close();
             }
         }
+
+        private void CreateUserForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

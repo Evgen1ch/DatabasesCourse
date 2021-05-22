@@ -101,5 +101,10 @@ namespace DatabasesCourse.CreateForms
                 e.Handled = true;
             }
         }
+
+        private void CreateProductForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

@@ -202,6 +202,7 @@ namespace DatabasesCourse.UpdateForms
             this.Controls.Add(this.textBoxBarcode);
             this.Name = "UpdateProductForm";
             this.Text = "UpdateProductForm";
+            this.Load += new System.EventHandler(this.UpdateProductForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPrice)).EndInit();
             this.ResumeLayout(false);

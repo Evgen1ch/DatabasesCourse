@@ -68,5 +68,10 @@ namespace DatabasesCourse.UpdateForms
             this.DialogResult = DialogResult.Abort;
             this.Close();
         }
+
+        private void UpdateUserForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

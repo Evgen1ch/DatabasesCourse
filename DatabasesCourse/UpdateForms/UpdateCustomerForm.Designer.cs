@@ -147,6 +147,7 @@ namespace DatabasesCourse.UpdateForms
             this.Controls.Add(this.buttonCancel);
             this.Name = "UpdateCustomerForm";
             this.Text = "UpdateCustomerForm";
+            this.Load += new System.EventHandler(this.UpdateCustomerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

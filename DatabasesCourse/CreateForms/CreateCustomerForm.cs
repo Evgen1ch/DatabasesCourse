@@ -90,5 +90,10 @@ namespace DatabasesCourse.CreateForms
                 this.Close();
             }
         }
+
+        private void CreateCustomerForm_Load(object sender, EventArgs e)
+        {
+            CenterToParent();
+        }
     }
 }

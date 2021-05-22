@@ -18,6 +18,27 @@ namespace DatabasesCourse
         [STAThread]
         static void Main()
         {
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                //Credentials c1 = new Credentials {Email = "qwerty1@gmail.com", Password = "qwerty1", Role = Role.Employee };
+                //Credentials c2 = new Credentials {Email = "qwerty2@gmail.com", Password = "qwerty2", Role = Role.Manager };
+                //Credentials c3 = new Credentials {Email = "qwerty3@gmail.com", Password = "qwerty3", Role = Role.Admin };
+
+                //User u1 = new User {FirstName = "Employee", LastName = "Employee" ,Credentials = c1};
+                //User u2 = new User {FirstName = "Manager", LastName = "Manager", Credentials = c2 };
+                //User u3 = new User {FirstName = "Admin", LastName = "Admin", Credentials = c3 };
+                
+
+                //db.Credentials.AddRange(new List<Credentials> { c1, c2, c3 });
+                //db.Users.AddRange(new List<User> { u1, u2, u3 });
+                //db.SaveChanges();
+
+                //Customer c1 = new Customer{FirstName = "Firstname1", LastName = "Lastname1", PhoneNumber = "+88005553535", DateTimeRegistered = DateTime.Now};
+                //Customer c2 = new Customer{FirstName = "Firstname2", LastName = "Lastname2", PhoneNumber = "+88005553536", DateTimeRegistered = DateTime.Now};
+                //Customer c3 = new Customer{FirstName = "Firstname3", LastName = "Lastname3", PhoneNumber = "+88005553537", DateTimeRegistered = DateTime.Now};
+                //db.Customers.AddRange(c1, c2, c3);
+                //db.SaveChanges();
+            }
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
