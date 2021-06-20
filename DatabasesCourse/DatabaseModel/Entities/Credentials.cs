@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DatabasesCourse.DatabaseModel.Entities
+﻿namespace DatabasesCourse.DatabaseModel.Entities
 {
     public enum Role
     {
@@ -12,7 +6,7 @@ namespace DatabasesCourse.DatabaseModel.Entities
         Manager,
         Admin
     }
-    public class Credentials
+    public class Credentials : IEntityBase
     {
         public int Id { get; set; }
         public string Email { get; set; }

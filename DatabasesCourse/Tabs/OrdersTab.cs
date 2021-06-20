@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using DatabasesCourse.CreateForms;
+﻿using DatabasesCourse.CreateForms;
 using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.DetailsForms;
-using DatabasesCourse.UpdateForms;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Windows.Forms;
+using DatabasesCourse.Logging;
 
 namespace DatabasesCourse.Tabs
 {
@@ -53,14 +52,14 @@ namespace DatabasesCourse.Tabs
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Context = new DatabaseContext();
+            Context = AppGlobals.Context;
             Context.Orders.Load();
             LoadTableData();
 
             var users = Context.Users.ToList();
             foreach (var user in users)
             {
-                comboBox1.Items.Add(new ComboboxUserItem{Text = user.FirstName + user.LastName, Value = user});
+                comboBox1.Items.Add(new ComboboxUserItem { Text = user.FirstName + user.LastName, Value = user });
             }
             dateTimePicker1.Value = DateTime.Now.AddDays(-30);
             dateTimePicker1.MaxDate = DateTime.Today;
@@ -75,8 +74,8 @@ namespace DatabasesCourse.Tabs
         {
             dgvTable.DataSource = (from order
                     in Context.Orders
-                select new OrderProjection(order.Id, order.DateTime, order.TotalCost, order.Customer.FirstName, order.Customer.LastName,
-                    order.Customer.PhoneNumber, order.UserId)).ToList();
+                                   select new OrderProjection(order.Id, order.DateTime, order.TotalCost, order.Customer.FirstName, order.Customer.LastName,
+                                                      order.Customer.PhoneNumber, order.UserId)).ToList();
         }
 
         private void dgvTable_DoubleClick(object sender, EventArgs e)
@@ -118,16 +117,24 @@ namespace DatabasesCourse.Tabs
                 var orderToDelete = Context.Orders.FirstOrDefault(c => c.Id == id);
                 if (orderToDelete != null)
                 {
-                    Context.Orders.Remove(orderToDelete);
-                    Context.SaveChanges();
-                    UpdateDataGridView();
+                    try
+                    {
+                        Context.Orders.Remove(orderToDelete);
+                        Context.SaveChanges();
+                        Logger.Log($"Deleted Order with id = {orderToDelete.Id}", LogAction.Remove);
+                        UpdateDataGridView();
+                    }
+                    catch (Exception)
+                    {
+                        //ignore
+                    }
                 }
             }
         }
 
         public void SetUserView()
         {
-            Role role= Global.CurrentUser.Credentials.Role;
+            Role role = AppGlobals.CurrentUser.Credentials.Role;
             switch (role)
             {
                 case Role.Admin:
@@ -154,7 +161,7 @@ namespace DatabasesCourse.Tabs
             var data = Context.Orders
                 .Include(o => o.User)
                 .Include(o => o.Customer)
-                .AsEnumerable();
+                .AsQueryable();
             bool filtered = false;
             if (!string.IsNullOrEmpty(phone))
             {
@@ -177,7 +184,7 @@ namespace DatabasesCourse.Tabs
             var date1 = dateTimePicker1.Value;
             var date2 = dateTimePicker2.Value;
 
-            if (date1 < date2)
+            if (date1 < date2 && checkBoxUseDate.Checked)
             {
                 data = data.Where(o => o.DateTime >= date1 && o.DateTime <= date2);
                 filtered = true;
@@ -186,10 +193,10 @@ namespace DatabasesCourse.Tabs
             if (filtered)
             {
                 dgvTable.DataSource = (from x in data
-                    select new OrderProjection(x.Id, x.DateTime, x.TotalCost, x.Customer.FirstName, x.Customer.LastName,
-                        x.Customer.PhoneNumber, x.UserId)).ToList();
+                                       select new OrderProjection(x.Id, x.DateTime, x.TotalCost, x.Customer.FirstName, x.Customer.LastName,
+                                           x.Customer.PhoneNumber, x.UserId)).ToList();
             }
-                
+
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
@@ -197,6 +204,6 @@ namespace DatabasesCourse.Tabs
             LoadTableData();
         }
 
-        
+
     }
 }

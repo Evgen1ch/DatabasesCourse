@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using DatabasesCourse.DatabaseModel.Entities;
+﻿using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DatabasesCourse.DatabaseModel
 {
-    public class DatabaseContext: DbContext
+    public sealed class DatabaseContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Credentials> Credentials { get; set; }
@@ -16,10 +17,19 @@ namespace DatabasesCourse.DatabaseModel
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrdersProducts { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Supply> Supplies { get; set; }
+        public DbSet<LogEntry> Log { get; set; }
 
-        public DatabaseContext()
+        private DatabaseContext()
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
+        }
+
+        public static DatabaseContext Create()
+        {
+            return new();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,7 +48,7 @@ namespace DatabasesCourse.DatabaseModel
         {
             //User Entity
             builder.Entity<User>()
-                .Property(u=>u.FirstName).IsRequired().HasMaxLength(50);
+                .Property(u => u.FirstName).IsRequired().HasMaxLength(50);
             builder.Entity<User>()
                 .Property(u => u.LastName).IsRequired().HasMaxLength(50);
             //User Entity Relations
@@ -50,16 +60,15 @@ namespace DatabasesCourse.DatabaseModel
 
             //Credentials Entity
             builder.Entity<Credentials>()
-                .Property(c=>c.Email).IsRequired().HasMaxLength(50);
+                .Property(c => c.Email).IsRequired().HasMaxLength(50);
             builder.Entity<Credentials>()
                 .Property(c => c.Password).IsRequired().HasMaxLength(50);
             builder.Entity<Credentials>()
                 .Property(c => c.Role).IsRequired();
 
             //Customer Entity
-            //todo relations
             builder.Entity<Customer>()
-                .Property(c=>c.FirstName).IsRequired().HasMaxLength(50);
+                .Property(c => c.FirstName).IsRequired().HasMaxLength(50);
             builder.Entity<Customer>()
                 .Property(c => c.LastName).IsRequired().HasMaxLength(50);
             builder.Entity<Customer>()
@@ -69,31 +78,36 @@ namespace DatabasesCourse.DatabaseModel
             //Customer Entity Relations
 
             //Category Entity
-            //todo relations
             builder.Entity<Category>()
-                .Property(c=>c.Name).IsRequired().HasMaxLength(100);
+                .Property(c => c.Name).IsRequired().HasMaxLength(100);
 
 
             //Product Entity
-            //todo make double key id-barcode
             builder.Entity<Product>()
-                .Property(p=>p.BarCode).IsRequired().HasMaxLength(13);
+                .Property(p => p.BarCode).IsRequired().HasMaxLength(13);
             builder.Entity<Product>()
                 .Property(p => p.Name).IsRequired().HasMaxLength(200);
-            builder.Entity<Product>()
-                .Property(p => p.Manufacturer).IsRequired().HasMaxLength(100);
             builder.Entity<Product>()
                 .Property(p => p.Price).IsRequired().HasColumnType("money");
             builder.Entity<Product>()
                 .Property(p => p.Amount).IsRequired().HasDefaultValue(0);
-            builder.Entity<Product>().HasIndex(p => p.BarCode).IsUnique();
+            builder.Entity<Product>().HasAlternateKey(p => p.BarCode);
+            builder.Entity<Product>()
+                .HasOne(p => p.Manufacturer)
+                .WithMany(m => m.Products)
+                .HasForeignKey(p => p.ManufacturerId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 
             //Order Entity
-            //todo relations
             builder.Entity<Order>()
-                .Property(o=>o.TotalCost).IsRequired().HasColumnType("money");
+                .Property(o => o.TotalCost).IsRequired().HasColumnType("money");
             builder.Entity<Order>()
                 .Property(o => o.DateTime).IsRequired();
             builder.Entity<Order>()
@@ -106,45 +120,62 @@ namespace DatabasesCourse.DatabaseModel
                 .WithMany(c => c.Orders)
                 .HasForeignKey(o => o.CustomerId)
                 .OnDelete(DeleteBehavior.SetNull);
-            //todo configure tables columns. day after: I dont understand what i tried to say ))
-            
 
+            //Supply entity
+            builder.Entity<Supply>()
+                .Property(s => s.DateTime).HasDefaultValue(DateTime.Now);
+
+            //Order-Product relationship
             builder
                 .Entity<Order>()
                 .HasMany(o => o.Products)
                 .WithMany(p => p.Orders)
                 .UsingEntity<OrderProduct>(
-                    j=>j
-                        .HasOne(op=>op.Product)
-                        .WithMany(p=>p.OrdersProducts)
-                        .HasForeignKey(op=>op.ProductId),
-                    j=>j
-                        .HasOne(op=>op.Order)
-                        .WithMany(o=>o.OrdersProducts)
-                        .HasForeignKey(op=>op.OrderId),
+                    j => j
+                        .HasOne(op => op.Product)
+                        .WithMany(p => p.OrdersProducts)
+                        .HasForeignKey(op => op.ProductId)
+                        .OnDelete(DeleteBehavior.Restrict),
+                    j => j
+                        .HasOne(op => op.Order)
+                        .WithMany(o => o.OrdersProducts)
+                        .HasForeignKey(op => op.OrderId)
+                        .OnDelete(DeleteBehavior.Cascade),
                     j =>
                     {
-                        j.HasKey(op => new {op.OrderId, op.ProductId});
+                        j.HasKey(op => new { op.OrderId, op.ProductId });
                         j.ToTable("OrderProduct");
                     }
                 );
+            builder.Entity<OrderProduct>().Property(op => op.Price).HasColumnType("money");
 
-            //Initial Data
-            Credentials c1 = new Credentials { Id = 1, Email = "qwerty1@gmail.com", Password = "qwerty1", Role = Role.Employee};
-            Credentials c2 = new Credentials { Id = 2, Email = "qwerty2@gmail.com", Password = "qwerty2", Role = Role.Manager};
-            Credentials c3 = new Credentials { Id = 3, Email = "qwerty3@gmail.com", Password = "qwerty3", Role = Role.Admin};
-
-            User u1 = new User { Id = 1, FirstName = "Employee", LastName = "Employee"};
-            User u2 = new User { Id = 2, FirstName = "Manager", LastName = "Manager"};
-            User u3 = new User { Id = 3, FirstName = "Admin", LastName = "Admin"};
+            //Manufacturer entity
+            builder.Entity<Manufacturer>()
+                .Property(m => m.Name).HasMaxLength(100).IsRequired();
+            builder.Entity<Manufacturer>()
+                .Property(m => m.Country).HasMaxLength(50).IsRequired();
             
-            c1.UserId = u1.Id;
-            c2.UserId = u2.Id; 
-            c3.UserId = u3.Id;
+            //Log entity
+            builder.Entity<LogEntry>()
+                .Property(l => l.Details).IsRequired().HasMaxLength(500);
+            builder.Entity<LogEntry>()
+                .Property(l => l.Action).IsRequired().HasMaxLength(50);
 
-            builder.Entity<Credentials>().HasData(new List<Credentials>{c1,c2,c3});
-            builder.Entity<User>().HasData(new List<User> {u1,u2,u3});
 
+            List<Credentials> creds = new List<Credentials>
+            {
+                new() { Id = 1, Email = "qwerty1@gmail.com", Password = "qwerty1", Role = Role.Employee, UserId = 1},
+                new() { Id = 2, Email = "qwerty2@gmail.com", Password = "qwerty2", Role = Role.Manager, UserId = 2},
+                new() { Id = 3, Email = "qwerty3@gmail.com", Password = "qwerty3", Role = Role.Admin, UserId = 3 }
+            };
+            List<User> users = new List<User>
+            {
+                new() {Id = 1, FirstName = "Emp", LastName = "Employee"},
+                new() {Id = 2, FirstName = "Man", LastName = "Manager"},
+                new() {Id = 3, FirstName = "Adm", LastName = "Admin"},
+            };
+            builder.Entity<User>().HasData(users);
+            builder.Entity<Credentials>().HasData(creds);
         }
     }
 }

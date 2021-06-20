@@ -1,33 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DatabasesCourse.CreateForms
 {
     public partial class CreateOrderForm : Form
     {
         private Product _selectedProduct;
-        private Order _model = new();
+        private Product _selectedItemsProduct;
 
-        Dictionary<Product, int> _selectedList = new Dictionary<Product, int>();
+        private readonly Order _model = new();
+
+        readonly Dictionary<Product, int> _selectedList = new();
 
         private DatabaseContext Context { get; set; }
 
-        private List<Product> Products { get; set; }
         public CreateOrderForm(DatabaseContext context)
         {
             InitializeComponent();
             Context = context;
             dgvProducts.AutoGenerateColumns = false;
-            //dgvSelectedItems.AutoGenerateColumns = false;
+            dgvSelectedItems.AutoGenerateColumns = false;
+        }
+
+        public void UpdateDataGridView()
+        {
+            dgvProducts.DataSource = Context.Products.ToList();
+            dgvSelectedItems.DataSource = _selectedList.Keys.ToList();
+            foreach (DataGridViewRow row in dgvSelectedItems.Rows)
+            {
+                row.Cells["Count"].Value = _selectedList[row.DataBoundItem as Product];
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -42,7 +49,7 @@ namespace DatabasesCourse.CreateForms
                 if (_selectedProduct != null)
                 {
                     labelSelectedInfo.Text = _selectedProduct.Name;
-                } 
+                }
             }
 
             var customers = Context.Customers.ToList();
@@ -50,8 +57,6 @@ namespace DatabasesCourse.CreateForms
             {
                 comboBoxCustomer.Items.Add(customer);
             }
-
-            //todo load user
         }
 
         private void CreateOrderForm_Load(object sender, EventArgs e)
@@ -70,7 +75,8 @@ namespace DatabasesCourse.CreateForms
             foreach (var i in _selectedList)
             {
                 _model.TotalCost += i.Key.Price * i.Value;
-                _model.OrdersProducts.Add(new OrderProduct { Product = i.Key, Amount = i.Value});
+                _model.OrdersProducts.Add(new OrderProduct { Product = i.Key, Amount = i.Value , Price = i.Key.Price});
+                i.Key.Amount -= i.Value;
             }
 
             if (comboBoxCustomer.SelectedItem != null)
@@ -79,12 +85,13 @@ namespace DatabasesCourse.CreateForms
             }
 
             _model.DateTime = DateTime.Now;
-            _model.UserId = Global.CurrentUser.Id;
+            _model.UserId = AppGlobals.CurrentUser.Id;
 
             try
             {
                 Context.Orders.Add(_model);
                 Context.SaveChanges();
+                Logger.Log($"Order added with Id = {_model.Id}", LogAction.Insert);
             }
             catch (Exception ex)
             {
@@ -94,13 +101,13 @@ namespace DatabasesCourse.CreateForms
                     message += $"\nInner exception: {ex.InnerException.Message}";
                 }
 
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 Close();
             }
-           
+
         }
 
         private void Cancel_Click(object sender, EventArgs e)
@@ -110,7 +117,7 @@ namespace DatabasesCourse.CreateForms
 
         private void dgvProducts_SelectionChanged(object sender, EventArgs e)
         {
-            if(dgvProducts.CurrentRow == null) return;
+            if (dgvProducts.CurrentRow == null) return;
 
             _selectedProduct = dgvProducts.CurrentRow.DataBoundItem as Product;
 
@@ -119,7 +126,7 @@ namespace DatabasesCourse.CreateForms
             labelSelectedInfo.Text = _selectedProduct.Name;
 
             numericUpDownAmount.Maximum = _selectedProduct.Amount;
-            numericUpDownAmount.Value = 1;
+            numericUpDownAmount.Value = Convert.ToInt32(numericUpDownAmount.Maximum > 0);
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -128,10 +135,7 @@ namespace DatabasesCourse.CreateForms
 
             int amount = (int)numericUpDownAmount.Value;
 
-            if(amount == 0) return;
-
-            
-            int id = _selectedProduct.Id;
+            if (amount == 0) return;
 
             if (_selectedList.ContainsKey(_selectedProduct))
             {
@@ -141,13 +145,45 @@ namespace DatabasesCourse.CreateForms
             {
                 _selectedList.Add(_selectedProduct, amount);
             }
-            
-            _selectedProduct.Amount -= amount;
-            DataTable table = new DataTable();
+
             dgvSelectedItems.DataSource = _selectedList.Keys.ToList();
+            foreach (DataGridViewRow row in dgvSelectedItems.Rows)
+            {
+                row.Cells["Count"].Value = _selectedList[row.DataBoundItem as Product];
+            }
             //update limit
-            numericUpDownAmount.Maximum = _selectedProduct.Amount;
+            numericUpDownAmount.Maximum = _selectedProduct.Amount - _selectedList[_selectedProduct];
             dgvProducts.Invalidate();
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            if (_selectedItemsProduct == null) return;
+            _selectedList.Remove(_selectedItemsProduct);
+            _selectedItemsProduct = null;
+            UpdateDataGridView();
+        }
+
+        private void buttonRemoveOne_Click(object sender, EventArgs e)
+        {
+            if (_selectedItemsProduct == null) return;
+
+            if (_selectedList[_selectedItemsProduct] == 1)
+            {
+                _selectedList.Remove(_selectedItemsProduct);
+                _selectedItemsProduct = null;
+            }
+
+            else
+                _selectedList[_selectedItemsProduct]--;
+            UpdateDataGridView();
+        }
+
+        private void dgvSelectedItems_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvSelectedItems.CurrentRow == null) return;
+
+            _selectedItemsProduct = dgvSelectedItems.CurrentRow.DataBoundItem as Product;
         }
     }
 }

@@ -1,56 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DatabasesCourse.Tabs
 {
     public partial class StatisticsTab : UserControl
     {
-        private DatabaseContext Context { get; set; } 
+        private DatabaseContext Context { get; set; }
         public StatisticsTab()
         {
             InitializeComponent();
-            Context = new DatabaseContext();
+            Context = AppGlobals.Context;
             Context.Products.Load();
         }
 
-        private void buttonUpdateProdStat_Click(object sender, EventArgs e)
+        private async void buttonUpdateProdStat_Click(object sender, EventArgs e)
         {
             Product temp1 = null;
             Product temp2 = null;
             var products = Context.Products.ToList();
             int maxSum = 0;
             int maxMonthSum = 0;
-            foreach (var product in products)
+
+            await Task.Run(() =>
             {
-                var sum = Context.OrdersProducts.Where(p => p.ProductId == product.Id).Sum(op => op.Amount);
-
-                var sumMonth = Context.OrdersProducts.Include(op=>op.Order).AsEnumerable().Where(op =>
-                        op.ProductId == product.Id && (DateTime.Now - op.Order.DateTime).TotalDays < 30)
-                    .Sum(op => op.Amount);
-                if (sum > maxSum)
+                foreach (var product in products)
                 {
-                    maxSum = sum;
-                    temp1 = product;
-                }
-                if (sumMonth > maxMonthSum)
-                {
-                    maxMonthSum = sumMonth;
-                    temp2 = product;
-                }
-            }
+                    var sum = Context.OrdersProducts.Where(p => p.ProductId == product.Id).Sum(op => op.Amount);
 
-            labelProdStat1Value.Text = maxSum.ToString() + @"     " + (temp1 != null ? temp1.Name : "Undefined name");
-            labelProdStat2Value.Text = maxMonthSum.ToString() + @"     " + (temp2 != null ? temp2.Name : "Undefined name");
+                    var sumMonth = Context.OrdersProducts.Include(op => op.Order).AsEnumerable().Where(op =>
+                            op.ProductId == product.Id && (DateTime.Now - op.Order.DateTime).TotalDays < 30)
+                        .Sum(op => op.Amount);
+                    if (sum > maxSum)
+                    {
+                        maxSum = sum;
+                        temp1 = product;
+                    }
+
+                    if (sumMonth > maxMonthSum)
+                    {
+                        maxMonthSum = sumMonth;
+                        temp2 = product;
+                    }
+                }
+            });
+
+            labelProdStat1Value.Text = maxSum.ToString() + @"products with name " + (temp1 != null ? temp1.Name : "Undefined name");
+            labelProdStat2Value.Text = maxMonthSum.ToString() + @"products with name " + (temp2 != null ? temp2.Name : "Undefined name");
 
         }
 
@@ -65,11 +67,19 @@ namespace DatabasesCourse.Tabs
 
         private void buttonUsersStats_Click(object sender, EventArgs e)
         {
-            var users = Context.Users.Include(u=>u.Credentials).Include(u=>u.ServedOrders).ToList();
+            var users = Context.Users
+                .Include(u => u.Credentials)
+                .Include(u => u.ServedOrders)
+                .AsQueryable();
             labelUserStat1.Text = users.Count(u => u.Credentials.Role == Role.Employee).ToString();
             labelUserStat2.Text = users.Count(u => u.Credentials.Role == Role.Manager).ToString();
             labelUserStat3.Text = users.Count(u => u.Credentials.Role == Role.Admin).ToString();
-            labelUserStat4.Text = users.Max(u => u.ServedOrders.Count).ToString();
+            
+            var max = users.AsEnumerable().Max(u => u.ServedOrders.Count);
+            var user = users.AsEnumerable().FirstOrDefault(u => u.ServedOrders.Count == max);
+            if(user!= null)
+                labelUserStat4.Text =
+                    max.ToString() + ". User: " + user.FirstName + " " + user.LastName + ", Id = " + user.Id;
         }
     }
 }

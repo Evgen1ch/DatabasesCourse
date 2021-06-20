@@ -30,18 +30,17 @@ namespace DatabasesCourse.DetailsForms
         private void InitializeComponent()
         {
             this.dgvProducts = new System.Windows.Forms.DataGridView();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelCustomer = new System.Windows.Forms.Label();
-            this.labelUser = new System.Windows.Forms.Label();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.labelTotalCost = new System.Windows.Forms.Label();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.labelCustomerText = new System.Windows.Forms.Label();
+            this.labelUserText = new System.Windows.Forms.Label();
+            this.labelCustomerValue = new System.Windows.Forms.Label();
+            this.labelUserValue = new System.Windows.Forms.Label();
+            this.labelTotalCostText = new System.Windows.Forms.Label();
+            this.labelTotalCostValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,51 +64,6 @@ namespace DatabasesCourse.DetailsForms
             this.dgvProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProducts.Size = new System.Drawing.Size(775, 302);
             this.dgvProducts.TabIndex = 0;
-            // 
-            // buttonOk
-            // 
-            this.buttonOk.Location = new System.Drawing.Point(694, 415);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(94, 23);
-            this.buttonOk.TabIndex = 1;
-            this.buttonOk.Text = "Ok";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "label2";
-            // 
-            // labelCustomer
-            // 
-            this.labelCustomer.AutoSize = true;
-            this.labelCustomer.Location = new System.Drawing.Point(99, 13);
-            this.labelCustomer.Name = "labelCustomer";
-            this.labelCustomer.Size = new System.Drawing.Size(38, 15);
-            this.labelCustomer.TabIndex = 4;
-            this.labelCustomer.Text = "label3";
-            // 
-            // labelUser
-            // 
-            this.labelUser.AutoSize = true;
-            this.labelUser.Location = new System.Drawing.Point(99, 37);
-            this.labelUser.Name = "labelUser";
-            this.labelUser.Size = new System.Drawing.Size(38, 15);
-            this.labelUser.TabIndex = 5;
-            this.labelUser.Text = "label4";
             // 
             // Id
             // 
@@ -139,45 +93,80 @@ namespace DatabasesCourse.DetailsForms
             this.Amount.Name = "Amount";
             this.Amount.ReadOnly = true;
             // 
-            // label3
+            // buttonOk
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 15);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "label3";
+            this.buttonOk.Location = new System.Drawing.Point(694, 415);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(94, 23);
+            this.buttonOk.TabIndex = 1;
+            this.buttonOk.Text = "Ok";
+            this.buttonOk.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // labelCustomerText
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(558, 375);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 15);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Total cost:";
+            this.labelCustomerText.AutoSize = true;
+            this.labelCustomerText.Location = new System.Drawing.Point(13, 13);
+            this.labelCustomerText.Name = "labelCustomerText";
+            this.labelCustomerText.Size = new System.Drawing.Size(62, 15);
+            this.labelCustomerText.TabIndex = 2;
+            this.labelCustomerText.Text = "Customer:";
             // 
-            // labelTotalCost
+            // labelUserText
             // 
-            this.labelTotalCost.AutoSize = true;
-            this.labelTotalCost.Location = new System.Drawing.Point(624, 375);
-            this.labelTotalCost.Name = "labelTotalCost";
-            this.labelTotalCost.Size = new System.Drawing.Size(36, 15);
-            this.labelTotalCost.TabIndex = 8;
-            this.labelTotalCost.Text = "None";
+            this.labelUserText.AutoSize = true;
+            this.labelUserText.Location = new System.Drawing.Point(13, 37);
+            this.labelUserText.Name = "labelUserText";
+            this.labelUserText.Size = new System.Drawing.Size(33, 15);
+            this.labelUserText.TabIndex = 3;
+            this.labelUserText.Text = "User:";
+            // 
+            // labelCustomerValue
+            // 
+            this.labelCustomerValue.AutoSize = true;
+            this.labelCustomerValue.Location = new System.Drawing.Point(99, 13);
+            this.labelCustomerValue.Name = "labelCustomerValue";
+            this.labelCustomerValue.Size = new System.Drawing.Size(61, 15);
+            this.labelCustomerValue.TabIndex = 4;
+            this.labelCustomerValue.Text = "undefined";
+            // 
+            // labelUserValue
+            // 
+            this.labelUserValue.AutoSize = true;
+            this.labelUserValue.Location = new System.Drawing.Point(99, 37);
+            this.labelUserValue.Name = "labelUserValue";
+            this.labelUserValue.Size = new System.Drawing.Size(61, 15);
+            this.labelUserValue.TabIndex = 5;
+            this.labelUserValue.Text = "undefined";
+            // 
+            // labelTotalCostText
+            // 
+            this.labelTotalCostText.AutoSize = true;
+            this.labelTotalCostText.Location = new System.Drawing.Point(558, 375);
+            this.labelTotalCostText.Name = "labelTotalCostText";
+            this.labelTotalCostText.Size = new System.Drawing.Size(60, 15);
+            this.labelTotalCostText.TabIndex = 7;
+            this.labelTotalCostText.Text = "Total cost:";
+            // 
+            // labelTotalCostValue
+            // 
+            this.labelTotalCostValue.AutoSize = true;
+            this.labelTotalCostValue.Location = new System.Drawing.Point(624, 375);
+            this.labelTotalCostValue.Name = "labelTotalCostValue";
+            this.labelTotalCostValue.Size = new System.Drawing.Size(36, 15);
+            this.labelTotalCostValue.TabIndex = 8;
+            this.labelTotalCostValue.Text = "None";
             // 
             // DetailsOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelTotalCost);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.labelUser);
-            this.Controls.Add(this.labelCustomer);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTotalCostValue);
+            this.Controls.Add(this.labelTotalCostText);
+            this.Controls.Add(this.labelUserValue);
+            this.Controls.Add(this.labelCustomerValue);
+            this.Controls.Add(this.labelUserText);
+            this.Controls.Add(this.labelCustomerText);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.dgvProducts);
             this.Name = "DetailsOrderForm";
@@ -193,16 +182,15 @@ namespace DatabasesCourse.DetailsForms
 
         private System.Windows.Forms.DataGridView dgvProducts;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelCustomer;
-        private System.Windows.Forms.Label labelUser;
+        private System.Windows.Forms.Label labelCustomerText;
+        private System.Windows.Forms.Label labelUserText;
+        private System.Windows.Forms.Label labelCustomerValue;
+        private System.Windows.Forms.Label labelUserValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn PName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label labelTotalCost;
+        private System.Windows.Forms.Label labelTotalCostText;
+        private System.Windows.Forms.Label labelTotalCostValue;
     }
 }

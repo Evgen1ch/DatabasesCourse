@@ -33,7 +33,8 @@ namespace DatabasesCourse.Tabs
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.buttonApplyFilters = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelSearchName = new System.Windows.Forms.Label();
@@ -43,8 +44,7 @@ namespace DatabasesCourse.Tabs
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxManufacturer = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxManufacturer = new System.Windows.Forms.ComboBox();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -77,9 +77,9 @@ namespace DatabasesCourse.Tabs
             // groupBoxFilter
             // 
             this.groupBoxFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.groupBoxFilter.Controls.Add(this.textBoxManufacturer);
+            this.groupBoxFilter.Controls.Add(this.comboBoxManufacturer);
             this.groupBoxFilter.Controls.Add(this.label1);
-            this.groupBoxFilter.Controls.Add(this.comboBox1);
+            this.groupBoxFilter.Controls.Add(this.comboBoxCategory);
             this.groupBoxFilter.Controls.Add(this.buttonApplyFilters);
             this.groupBoxFilter.Controls.Add(this.textBox1);
             this.groupBoxFilter.Controls.Add(this.labelSearchName);
@@ -92,13 +92,22 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
             // 
-            // comboBox1
+            // label1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(11, 98);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(168, 23);
-            this.comboBox1.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 139);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 15);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Manufacturer:";
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(11, 98);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(168, 23);
+            this.comboBoxCategory.TabIndex = 7;
             // 
             // buttonApplyFilters
             // 
@@ -192,21 +201,15 @@ namespace DatabasesCourse.Tabs
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // textBoxManufacturer
+            // comboBoxManufacturer
             // 
-            this.textBoxManufacturer.Location = new System.Drawing.Point(11, 157);
-            this.textBoxManufacturer.Name = "textBoxManufacturer";
-            this.textBoxManufacturer.Size = new System.Drawing.Size(168, 23);
-            this.textBoxManufacturer.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 139);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 15);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Manufacturer:";
+            this.comboBoxManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.comboBoxManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxManufacturer.FormattingEnabled = true;
+            this.comboBoxManufacturer.Location = new System.Drawing.Point(11, 157);
+            this.comboBoxManufacturer.Name = "comboBoxManufacturer";
+            this.comboBoxManufacturer.Size = new System.Drawing.Size(168, 23);
+            this.comboBoxManufacturer.TabIndex = 10;
             // 
             // ProductsTab
             // 
@@ -242,8 +245,8 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelSearchName;
         private System.Windows.Forms.Label labelSearchCategory;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBoxManufacturer;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxManufacturer;
     }
 }

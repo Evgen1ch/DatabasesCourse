@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabasesCourse.DatabaseModel.Entities
 {
-    public class Product
+    public class Product : IEntityBase
     {
         public int Id { get; set; }
         public string BarCode { get; set; }
-        public string Manufacturer { get; set; }
+        public int ManufacturerId { get; set; }
+        [Browsable(false)]
+        public Manufacturer Manufacturer { get; set; }
         public string Name { get; set; }
-        
+
         public int CategoryId { get; set; }
         [Browsable(false)]
         public Category Category { get; set; }

@@ -46,6 +46,7 @@ namespace DatabasesCourse.Tabs
             this.labelSearchCustomerPhone = new System.Windows.Forms.Label();
             this.labelSearchCategory = new System.Windows.Forms.Label();
             this.dgvTable = new System.Windows.Forms.DataGridView();
+            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -90,7 +91,7 @@ namespace DatabasesCourse.Tabs
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(106, 362);
+            this.buttonReset.Location = new System.Drawing.Point(106, 382);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 23);
             this.buttonReset.TabIndex = 11;
@@ -101,6 +102,7 @@ namespace DatabasesCourse.Tabs
             // groupBoxFilter
             // 
             this.groupBoxFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.groupBoxFilter.Controls.Add(this.checkBoxUseDate);
             this.groupBoxFilter.Controls.Add(this.label2);
             this.groupBoxFilter.Controls.Add(this.dateTimePicker2);
             this.groupBoxFilter.Controls.Add(this.buttonApplyFilters);
@@ -115,7 +117,7 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBoxFilter.Location = new System.Drawing.Point(2, 16);
             this.groupBoxFilter.Name = "groupBoxFilter";
-            this.groupBoxFilter.Size = new System.Drawing.Size(185, 340);
+            this.groupBoxFilter.Size = new System.Drawing.Size(185, 360);
             this.groupBoxFilter.TabIndex = 10;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
@@ -123,7 +125,7 @@ namespace DatabasesCourse.Tabs
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 259);
+            this.label2.Location = new System.Drawing.Point(11, 284);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 15);
             this.label2.TabIndex = 13;
@@ -131,7 +133,7 @@ namespace DatabasesCourse.Tabs
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(11, 277);
+            this.dateTimePicker2.Location = new System.Drawing.Point(11, 302);
             this.dateTimePicker2.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(168, 23);
@@ -140,7 +142,7 @@ namespace DatabasesCourse.Tabs
             // 
             // buttonApplyFilters
             // 
-            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 311);
+            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 331);
             this.buttonApplyFilters.Name = "buttonApplyFilters";
             this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
             this.buttonApplyFilters.TabIndex = 6;
@@ -151,7 +153,7 @@ namespace DatabasesCourse.Tabs
             // labelDate1
             // 
             this.labelDate1.AutoSize = true;
-            this.labelDate1.Location = new System.Drawing.Point(11, 197);
+            this.labelDate1.Location = new System.Drawing.Point(11, 222);
             this.labelDate1.Name = "labelDate1";
             this.labelDate1.Size = new System.Drawing.Size(43, 15);
             this.labelDate1.TabIndex = 11;
@@ -159,7 +161,7 @@ namespace DatabasesCourse.Tabs
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(11, 215);
+            this.dateTimePicker1.Location = new System.Drawing.Point(11, 240);
             this.dateTimePicker1.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(168, 23);
@@ -237,6 +239,16 @@ namespace DatabasesCourse.Tabs
             this.dgvTable.TabIndex = 16;
             this.dgvTable.DoubleClick += new System.EventHandler(this.dgvTable_DoubleClick);
             // 
+            // checkBoxUseDate
+            // 
+            this.checkBoxUseDate.AutoSize = true;
+            this.checkBoxUseDate.Location = new System.Drawing.Point(11, 200);
+            this.checkBoxUseDate.Name = "checkBoxUseDate";
+            this.checkBoxUseDate.Size = new System.Drawing.Size(114, 19);
+            this.checkBoxUseDate.TabIndex = 14;
+            this.checkBoxUseDate.Text = "Use date bounds";
+            this.checkBoxUseDate.UseVisualStyleBackColor = true;
+            // 
             // OrdersTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -274,5 +286,6 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label labelDate1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.CheckBox checkBoxUseDate;
     }
 }

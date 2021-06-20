@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DatabasesCourse.DatabaseModel.Entities;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using DatabasesCourse.DatabaseModel.Entities;
 
 namespace DatabasesCourse.Validators
 {
-    class CustomerValidator: IValidator<Customer>
+    class CustomerValidator : IValidator<Customer>
     {
         public string ValidateWithString(Customer entity)
         {

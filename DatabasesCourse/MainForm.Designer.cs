@@ -1,4 +1,6 @@
 ﻿
+using DatabasesCourse.Tabs;
+
 namespace DatabasesCourse
 {
     partial class MainForm
@@ -31,9 +33,12 @@ namespace DatabasesCourse
         {
             this.panelMenu = new System.Windows.Forms.Panel();
             this.buttonStat1 = new System.Windows.Forms.Button();
+            this.buttonActivity = new System.Windows.Forms.Button();
             this.buttonUsers = new System.Windows.Forms.Button();
             this.buttonCustomers = new System.Windows.Forms.Button();
             this.buttonOrders = new System.Windows.Forms.Button();
+            this.buttonSupplies = new System.Windows.Forms.Button();
+            this.buttonManufacturers = new System.Windows.Forms.Button();
             this.buttonCategories = new System.Windows.Forms.Button();
             this.buttonProducts = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
@@ -45,6 +50,9 @@ namespace DatabasesCourse
             this.ordersTab = new DatabasesCourse.Tabs.OrdersTab();
             this.customersTab = new DatabasesCourse.Tabs.CustomersTab();
             this.usersTab = new DatabasesCourse.Tabs.UsersTab();
+            this.manufacturersTab = new DatabasesCourse.Tabs.ManufacturersTab();
+            this.suppliesTab = new DatabasesCourse.Tabs.SuppliesTab();
+            this.activityTab = new DatabasesCourse.Tabs.ActivityTab();
             this.statisticsTab = new DatabasesCourse.Tabs.StatisticsTab();
             this.panelMenu.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -56,9 +64,12 @@ namespace DatabasesCourse
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelMenu.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panelMenu.Controls.Add(this.buttonStat1);
+            this.panelMenu.Controls.Add(this.buttonActivity);
             this.panelMenu.Controls.Add(this.buttonUsers);
             this.panelMenu.Controls.Add(this.buttonCustomers);
             this.panelMenu.Controls.Add(this.buttonOrders);
+            this.panelMenu.Controls.Add(this.buttonSupplies);
+            this.panelMenu.Controls.Add(this.buttonManufacturers);
             this.panelMenu.Controls.Add(this.buttonCategories);
             this.panelMenu.Controls.Add(this.buttonProducts);
             this.panelMenu.Location = new System.Drawing.Point(0, 40);
@@ -76,13 +87,28 @@ namespace DatabasesCourse
             this.buttonStat1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStat1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonStat1.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonStat1.Location = new System.Drawing.Point(0, 255);
+            this.buttonStat1.Location = new System.Drawing.Point(0, 368);
             this.buttonStat1.Name = "buttonStat1";
-            this.buttonStat1.Size = new System.Drawing.Size(200, 51);
+            this.buttonStat1.Size = new System.Drawing.Size(200, 46);
             this.buttonStat1.TabIndex = 5;
             this.buttonStat1.Text = "Some statistics 1";
             this.buttonStat1.UseVisualStyleBackColor = false;
             this.buttonStat1.Click += new System.EventHandler(this.buttonStat1_Click);
+            // 
+            // buttonActivity
+            // 
+            this.buttonActivity.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonActivity.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonActivity.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonActivity.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonActivity.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonActivity.Location = new System.Drawing.Point(0, 322);
+            this.buttonActivity.Name = "buttonActivity";
+            this.buttonActivity.Size = new System.Drawing.Size(200, 46);
+            this.buttonActivity.TabIndex = 8;
+            this.buttonActivity.Text = "User Activity";
+            this.buttonActivity.UseVisualStyleBackColor = false;
+            this.buttonActivity.Click += new System.EventHandler(this.buttonActivity_Click);
             // 
             // buttonUsers
             // 
@@ -91,9 +117,9 @@ namespace DatabasesCourse
             this.buttonUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUsers.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonUsers.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonUsers.Location = new System.Drawing.Point(0, 204);
+            this.buttonUsers.Location = new System.Drawing.Point(0, 276);
             this.buttonUsers.Name = "buttonUsers";
-            this.buttonUsers.Size = new System.Drawing.Size(200, 51);
+            this.buttonUsers.Size = new System.Drawing.Size(200, 46);
             this.buttonUsers.TabIndex = 4;
             this.buttonUsers.Text = "Users";
             this.buttonUsers.UseVisualStyleBackColor = false;
@@ -106,9 +132,9 @@ namespace DatabasesCourse
             this.buttonCustomers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCustomers.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCustomers.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonCustomers.Location = new System.Drawing.Point(0, 153);
+            this.buttonCustomers.Location = new System.Drawing.Point(0, 230);
             this.buttonCustomers.Name = "buttonCustomers";
-            this.buttonCustomers.Size = new System.Drawing.Size(200, 51);
+            this.buttonCustomers.Size = new System.Drawing.Size(200, 46);
             this.buttonCustomers.TabIndex = 3;
             this.buttonCustomers.Text = "Customers";
             this.buttonCustomers.UseVisualStyleBackColor = false;
@@ -121,13 +147,43 @@ namespace DatabasesCourse
             this.buttonOrders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOrders.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonOrders.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonOrders.Location = new System.Drawing.Point(0, 102);
+            this.buttonOrders.Location = new System.Drawing.Point(0, 184);
             this.buttonOrders.Name = "buttonOrders";
-            this.buttonOrders.Size = new System.Drawing.Size(200, 51);
+            this.buttonOrders.Size = new System.Drawing.Size(200, 46);
             this.buttonOrders.TabIndex = 2;
             this.buttonOrders.Text = "Orders";
             this.buttonOrders.UseVisualStyleBackColor = false;
             this.buttonOrders.Click += new System.EventHandler(this.buttonOrders_Click);
+            // 
+            // buttonSupplies
+            // 
+            this.buttonSupplies.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonSupplies.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSupplies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSupplies.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSupplies.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonSupplies.Location = new System.Drawing.Point(0, 138);
+            this.buttonSupplies.Name = "buttonSupplies";
+            this.buttonSupplies.Size = new System.Drawing.Size(200, 46);
+            this.buttonSupplies.TabIndex = 7;
+            this.buttonSupplies.Text = "Supplies";
+            this.buttonSupplies.UseVisualStyleBackColor = false;
+            this.buttonSupplies.Click += new System.EventHandler(this.buttonSupplies_Click);
+            // 
+            // buttonManufacturers
+            // 
+            this.buttonManufacturers.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonManufacturers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonManufacturers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonManufacturers.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonManufacturers.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonManufacturers.Location = new System.Drawing.Point(0, 92);
+            this.buttonManufacturers.Name = "buttonManufacturers";
+            this.buttonManufacturers.Size = new System.Drawing.Size(200, 46);
+            this.buttonManufacturers.TabIndex = 6;
+            this.buttonManufacturers.Text = "Manufacturers";
+            this.buttonManufacturers.UseVisualStyleBackColor = false;
+            this.buttonManufacturers.Click += new System.EventHandler(this.buttonManufacturers_Click);
             // 
             // buttonCategories
             // 
@@ -136,9 +192,9 @@ namespace DatabasesCourse
             this.buttonCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCategories.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.buttonCategories.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonCategories.Location = new System.Drawing.Point(0, 51);
+            this.buttonCategories.Location = new System.Drawing.Point(0, 46);
             this.buttonCategories.Name = "buttonCategories";
-            this.buttonCategories.Size = new System.Drawing.Size(200, 51);
+            this.buttonCategories.Size = new System.Drawing.Size(200, 46);
             this.buttonCategories.TabIndex = 1;
             this.buttonCategories.Text = "Categories";
             this.buttonCategories.UseVisualStyleBackColor = false;
@@ -153,7 +209,7 @@ namespace DatabasesCourse
             this.buttonProducts.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonProducts.Location = new System.Drawing.Point(0, 0);
             this.buttonProducts.Name = "buttonProducts";
-            this.buttonProducts.Size = new System.Drawing.Size(200, 51);
+            this.buttonProducts.Size = new System.Drawing.Size(200, 46);
             this.buttonProducts.TabIndex = 0;
             this.buttonProducts.Text = "Products";
             this.buttonProducts.UseVisualStyleBackColor = false;
@@ -266,11 +322,44 @@ namespace DatabasesCourse
             this.usersTab.TabIndex = 6;
             this.usersTab.Visible = false;
             // 
-            // statisticsTab
+            // manufacturersTab
             // 
-            this.statisticsTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.manufacturersTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.manufacturersTab.Location = new System.Drawing.Point(200, 40);
+            this.manufacturersTab.Name = "manufacturersTab";
+            this.manufacturersTab.Size = new System.Drawing.Size(584, 421);
+            this.manufacturersTab.TabIndex = 7;
+            this.manufacturersTab.Visible = false;
+            // 
+            // suppliesTab
+            // 
+            this.suppliesTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.suppliesTab.Location = new System.Drawing.Point(200, 40);
+            this.suppliesTab.Name = "suppliesTab";
+            this.suppliesTab.Size = new System.Drawing.Size(584, 421);
+            this.suppliesTab.TabIndex = 8;
+            this.suppliesTab.Visible = false;
+            // 
+            // activityTab
+            // 
+            this.activityTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.activityTab.Location = new System.Drawing.Point(200, 40);
+            this.activityTab.Name = "activityTab";
+            this.activityTab.Size = new System.Drawing.Size(584, 421);
+            this.activityTab.TabIndex = 9;
+            this.activityTab.Visible = false;
+            // 
+            // statisticsTab
+            // 
+            this.statisticsTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                                                                               | System.Windows.Forms.AnchorStyles.Left)
+                                                                              | System.Windows.Forms.AnchorStyles.Right)));
             this.statisticsTab.Location = new System.Drawing.Point(200, 40);
             this.statisticsTab.Name = "statisticsTab";
             this.statisticsTab.Size = new System.Drawing.Size(584, 421);
@@ -282,12 +371,15 @@ namespace DatabasesCourse
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Controls.Add(this.statisticsTab);
+            this.Controls.Add(this.activityTab);
+            this.Controls.Add(this.suppliesTab);
+            this.Controls.Add(this.manufacturersTab);
             this.Controls.Add(this.usersTab);
             this.Controls.Add(this.customersTab);
             this.Controls.Add(this.ordersTab);
             this.Controls.Add(this.categoriesTab);
             this.Controls.Add(this.productsTab);
+            this.Controls.Add(this.statisticsTab);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panelMenu);
             this.MinimumSize = new System.Drawing.Size(800, 500);
@@ -321,6 +413,12 @@ namespace DatabasesCourse
         private System.Windows.Forms.Label labelCurrentUserInfo;
         private System.Windows.Forms.Label labelCurrentUser;
         private Tabs.StatisticsTab statisticsTab;
+        private System.Windows.Forms.Button buttonSupplies;
+        private System.Windows.Forms.Button buttonManufacturers;
+        private System.Windows.Forms.Button buttonActivity;
+        private Tabs.ManufacturersTab manufacturersTab;
+        private Tabs.SuppliesTab suppliesTab;
+        private Tabs.ActivityTab activityTab;
     }
 }
 

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DatabasesCourse.CreateForms;
+﻿using DatabasesCourse.CreateForms;
 using DatabasesCourse.DatabaseModel;
-using DatabasesCourse.UpdateForms;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
+using DatabasesCourse.Logging;
+using DatabasesCourse.UniversalForms;
 
 namespace DatabasesCourse.Tabs
 {
@@ -25,17 +21,8 @@ namespace DatabasesCourse.Tabs
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Context = new DatabaseContext();
+            Context = AppGlobals.Context;
             Context.Customers.Load();
-            //var customers = from customer 
-            //    in Context.Customers 
-            //    select new { customer.Id,
-            //        customer.FirstName,
-            //        customer.LastName,
-            //        customer.PhoneNumber,
-            //        customer.DateTimeRegistered };
-
-            //dgvTable.DataSource = customers.ToList();
             dgvTable.AutoGenerateColumns = false;
             dgvTable.DataSource = Context.Customers.Local.ToBindingList();
         }
@@ -47,7 +34,7 @@ namespace DatabasesCourse.Tabs
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            CreateCustomerForm createCustomerForm = new CreateCustomerForm(Context);
+            CustomerForm createCustomerForm = new CustomerForm(Context, FormAction.Create, 0);
             var res = createCustomerForm.ShowDialog();
             UpdateDataGridView();
         }
@@ -62,8 +49,8 @@ namespace DatabasesCourse.Tabs
 
             if (id != -1)
             {
-                UpdateCustomerForm updateProductForm = new UpdateCustomerForm(Context, id);
-                var res = updateProductForm.ShowDialog();
+                CustomerForm updateCustomerForm = new CustomerForm(Context, FormAction.Update, id);
+                updateCustomerForm.ShowDialog();
                 UpdateDataGridView();
             }
             else
@@ -88,9 +75,17 @@ namespace DatabasesCourse.Tabs
                 var toDelete = Context.Customers.FirstOrDefault(c => c.Id == id);
                 if (toDelete != null)
                 {
-                    Context.Customers.Remove(toDelete);
-                    Context.SaveChanges();
-                    UpdateDataGridView();
+                    try
+                    {
+                        Context.Customers.Remove(toDelete);
+                        Context.SaveChanges();
+                        Logger.Log($"Deleted Customer with id = {toDelete.Id}", LogAction.Remove);
+                        UpdateDataGridView();
+                    }
+                    catch (Exception)
+                    {
+                        //ignore
+                    }
                 }
             }
         }

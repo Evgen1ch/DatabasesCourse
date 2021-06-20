@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DatabasesCourse.DatabaseModel;
+using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.UniversalForms;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.CreateForms;
-using DatabasesCourse.DatabaseModel;
-using DatabasesCourse.DatabaseModel.Entities;
-using DatabasesCourse.UpdateForms;
-using Microsoft.EntityFrameworkCore;
+using DatabasesCourse.Logging;
 
 namespace DatabasesCourse.Tabs
 {
@@ -20,18 +20,37 @@ namespace DatabasesCourse.Tabs
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Context = new DatabaseContext();
+            Context = AppGlobals.Context;
             Context.Products.Include(p => p.Category).Load();
 
             dgvTable.DataSource = Context.Products.Local.ToBindingList();
+
+            UpdateFilters();
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (Visible)
+                UpdateFilters();
+        }
+
+        public void UpdateFilters()
+        {
+            comboBoxCategory.Items.Clear();
+            comboBoxManufacturer.Items.Clear();
             var categories = Context.Categories.ToList();
             foreach (var category in categories)
             {
-                comboBox1.Items.Add(category);
+                comboBoxCategory.Items.Add(category);
+            }
+            var manufacturers = Context.Manufacturers.ToList();
+            foreach (var manufacturer in manufacturers)
+            {
+                comboBoxManufacturer.Items.Add(manufacturer);
+                comboBoxManufacturer.DisplayMember = "Name";
             }
         }
-
-
 
         public void UpdateDataGridView()
         {
@@ -40,8 +59,8 @@ namespace DatabasesCourse.Tabs
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            CreateProductForm createProductForm = new CreateProductForm(Context);
-            var res = createProductForm.ShowDialog();
+            ProductForm form = new ProductForm(Context, FormAction.Create, 0);
+            form.ShowDialog();
             UpdateDataGridView();
         }
 
@@ -55,20 +74,20 @@ namespace DatabasesCourse.Tabs
 
             if (id > 0)
             {
-                UpdateProductForm updateProductForm = new UpdateProductForm(Context, id);
-                var res = updateProductForm.ShowDialog();
+                ProductForm form = new ProductForm(Context, FormAction.Update, id);
+                form.ShowDialog();
                 UpdateDataGridView();
             }
             else
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show(@"Something went wrong");
             }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             int id = -1;
-            if(dgvTable.CurrentRow?.Index != -1)
+            if (dgvTable.CurrentRow?.Index != -1)
             {
                 id = Convert.ToInt32(dgvTable.CurrentRow?.Cells["Id"].Value);
             }
@@ -81,16 +100,24 @@ namespace DatabasesCourse.Tabs
                 var toDelete = Context.Products.FirstOrDefault(p => p.Id == id);
                 if (toDelete != null)
                 {
-                    Context.Products.Remove(toDelete);
-                    Context.SaveChanges();
-                    UpdateDataGridView();
+                    try
+                    {
+                        Context.Products.Remove(toDelete);
+                        Context.SaveChanges();
+                        Logger.Log($"Deleted Product with id = {toDelete.Id}", LogAction.Remove);
+                        UpdateDataGridView();
+                    }
+                    catch (Exception)
+                    {
+                        //ignore
+                    }
                 }
             }
         }
 
         public void SetUserView()
         {
-            Role role = Global.CurrentUser.Credentials.Role;
+            Role role = AppGlobals.CurrentUser.Credentials.Role;
             switch (role)
             {
                 case Role.Admin:
@@ -114,41 +141,38 @@ namespace DatabasesCourse.Tabs
         private void buttonApplyFilters_Click(object sender, EventArgs e)
         {
             string name = textBox1.Text.Trim();
-            string man = textBoxManufacturer.Text.Trim();
+            var man = comboBoxManufacturer.SelectedItem as Manufacturer;
+            var cat = comboBoxCategory.SelectedItem as Category;
 
             bool filtered = false;
-            var data = Context.Products.Include(p=>p.Category).AsEnumerable();
+            var data = Context.Products.Include(p => p.Category).AsQueryable();
             if (!string.IsNullOrEmpty(name))
             {
-                data = data.Where(c => c.Name.Contains(name));
+                data = data.Where(c => EF.Functions.Like(c.Name, $"%{name}%"));
                 filtered = true;
                 textBox1.Text = string.Empty;
             }
-
-            if (comboBox1.SelectedItem != null)
+            if (cat != null)
             {
-                data = data.Where(c => c.CategoryId == (comboBox1.SelectedItem as Category).Id);
+                data = data.Where(c => c.CategoryId == cat.Id);
                 filtered = true;
-                //comboBox1.SelectedItem = null;
+                comboBoxCategory.SelectedItem = null;
             }
-
-            if (!string.IsNullOrEmpty(man))
+            if (man != null)
             {
-                data = data.Where(c => c.Manufacturer.Contains(man));
+                data = data.Where(c => c.Manufacturer.Id == man.Id);
                 filtered = true;
-                textBoxManufacturer.Text = string.Empty;
+                comboBoxManufacturer.SelectedItem = null;
             }
-
 
             if (filtered)
                 dgvTable.DataSource = data.ToList();
-
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
             dgvTable.DataSource = Context.Products.Local.ToBindingList();
-            comboBox1.SelectedItem = null;
+            comboBoxCategory.SelectedItem = null;
         }
     }
 }

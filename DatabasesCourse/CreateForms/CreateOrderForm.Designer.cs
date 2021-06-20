@@ -44,7 +44,14 @@ namespace DatabasesCourse.CreateForms
             this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
             this.labelCustomerSelect = new System.Windows.Forms.Label();
             this.dgvSelectedItems = new System.Windows.Forms.DataGridView();
+            this.SelectedId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelOrderSelected = new System.Windows.Forms.Label();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonRemoveOne = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectedItems)).BeginInit();
@@ -184,6 +191,12 @@ namespace DatabasesCourse.CreateForms
             this.dgvSelectedItems.AllowUserToDeleteRows = false;
             this.dgvSelectedItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSelectedItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSelectedItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedId,
+            this.SelectedName,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.Count});
             this.dgvSelectedItems.Location = new System.Drawing.Point(12, 258);
             this.dgvSelectedItems.Name = "dgvSelectedItems";
             this.dgvSelectedItems.ReadOnly = true;
@@ -191,6 +204,41 @@ namespace DatabasesCourse.CreateForms
             this.dgvSelectedItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSelectedItems.Size = new System.Drawing.Size(776, 135);
             this.dgvSelectedItems.TabIndex = 11;
+            this.dgvSelectedItems.SelectionChanged += new System.EventHandler(this.dgvSelectedItems_SelectionChanged);
+            // 
+            // SelectedId
+            // 
+            this.SelectedId.DataPropertyName = "Id";
+            this.SelectedId.HeaderText = "Id";
+            this.SelectedId.Name = "SelectedId";
+            this.SelectedId.ReadOnly = true;
+            // 
+            // SelectedName
+            // 
+            this.SelectedName.DataPropertyName = "Name";
+            this.SelectedName.HeaderText = "Name";
+            this.SelectedName.Name = "SelectedName";
+            this.SelectedName.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "CategoryId";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Category";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Price";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Price";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Count";
+            this.Count.Name = "Count";
+            this.Count.ReadOnly = true;
             // 
             // labelOrderSelected
             // 
@@ -201,11 +249,33 @@ namespace DatabasesCourse.CreateForms
             this.labelOrderSelected.TabIndex = 12;
             this.labelOrderSelected.Text = "Order Selected Products";
             // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(713, 229);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemove.TabIndex = 13;
+            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // buttonRemoveOne
+            // 
+            this.buttonRemoveOne.Location = new System.Drawing.Point(607, 229);
+            this.buttonRemoveOne.Name = "buttonRemoveOne";
+            this.buttonRemoveOne.Size = new System.Drawing.Size(100, 23);
+            this.buttonRemoveOne.TabIndex = 14;
+            this.buttonRemoveOne.Text = "Remove one";
+            this.buttonRemoveOne.UseVisualStyleBackColor = true;
+            this.buttonRemoveOne.Click += new System.EventHandler(this.buttonRemoveOne_Click);
+            // 
             // CreateOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 434);
+            this.Controls.Add(this.buttonRemoveOne);
+            this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.labelOrderSelected);
             this.Controls.Add(this.dgvSelectedItems);
             this.Controls.Add(this.labelCustomerSelect);
@@ -246,10 +316,12 @@ namespace DatabasesCourse.CreateForms
         private System.Windows.Forms.Label labelCustomerSelect;
         private System.Windows.Forms.DataGridView dgvSelectedItems;
         private System.Windows.Forms.Label labelOrderSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount2;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonRemoveOne;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SelectedId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SelectedName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using DatabasesCourse.CreateForms;
+﻿using DatabasesCourse.CreateForms;
 using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
-using DatabasesCourse.UpdateForms;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Windows.Forms;
+using DatabasesCourse.Logging;
+using DatabasesCourse.UniversalForms;
 
 namespace DatabasesCourse.Tabs
 {
@@ -39,19 +40,8 @@ namespace DatabasesCourse.Tabs
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Context = new DatabaseContext();
+            Context = AppGlobals.Context;
             Context.Users.Load();
-            //var users = from user
-            //    in Context.Users 
-            //    select new { user.Id,
-            //        user.FirstName,
-            //        user.LastName,
-            //        user.Credentials.Email,
-            //        user.Credentials.Password,
-            //        user.Credentials.Role
-            //    };
-            
-            //dgvTable.DataSource = users.ToList();
             LoadTableData();
 
             comboBoxRole.Items.Add(Role.Employee);
@@ -61,32 +51,20 @@ namespace DatabasesCourse.Tabs
 
         public void UpdateDataGridView()
         {
-            //var users = from user
-            //        in Context.Users
-            //    select new
-            //    {
-            //        user.Id,
-            //        user.FirstName,
-            //        user.LastName,
-            //        user.Credentials.Email,
-            //        user.Credentials.Password,
-            //        user.Credentials.Role
-            //    };
-            //dgvTable.DataSource = users.ToList();
             LoadTableData();
         }
 
         private void LoadTableData()
         {
             dgvTable.DataSource = (from x in Context.Users
-                select new UserProjection(x.Id, x.FirstName, x.LastName, x.Credentials.Email, x.Credentials.Password,
-                    x.Credentials.Role)).ToList();
+                                   select new UserProjection(x.Id, x.FirstName, x.LastName, x.Credentials.Email, x.Credentials.Password,
+                                       x.Credentials.Role)).ToList();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            CreateUserForm createProductForm = new CreateUserForm(Context);
-            var res = createProductForm.ShowDialog();
+            UserForm createProductForm = new UserForm(Context, FormAction.Create, 0);
+            createProductForm.ShowDialog();
             UpdateDataGridView();
         }
 
@@ -100,13 +78,13 @@ namespace DatabasesCourse.Tabs
 
             if (id != -1)
             {
-                UpdateUserForm updateProductForm = new UpdateUserForm(Context, id);
-                var res = updateProductForm.ShowDialog();
+                UserForm updateProductForm = new UserForm(Context, FormAction.Update, id);
+                updateProductForm.ShowDialog();
                 UpdateDataGridView();
             }
             else
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show(@"Something went wrong");
             }
         }
 
@@ -123,9 +101,22 @@ namespace DatabasesCourse.Tabs
             var result = MessageBox.Show($@"Are you sure you want ot delete entry with id = {id}");
             if (result == DialogResult.OK)
             {
-                Context.Users.Remove(Context.Users.FirstOrDefault(u => u.Id == id));
-                Context.SaveChanges();
-                UpdateDataGridView();
+                var toDelete = Context.Users.FirstOrDefault(u => u.Id == id);
+                if (toDelete != null)
+                {
+                    try
+                    {
+                        Context.Users.Remove(toDelete);
+                        Context.SaveChanges();
+                        Logger.Log($"Deleted User with id = {toDelete.Id}", LogAction.Remove);
+                        UpdateDataGridView();
+                    }
+                    catch (Exception)
+                    {
+                        //ignore
+                    }
+                }
+                
             }
         }
 
@@ -136,7 +127,7 @@ namespace DatabasesCourse.Tabs
             Role? role = (Role?)comboBoxRole.SelectedItem;
 
             bool filtered = false;
-            var data = Context.Users.Include(u=>u.Credentials).AsEnumerable();
+            var data = Context.Users.Include(u => u.Credentials).AsEnumerable();
             if (!string.IsNullOrEmpty(name))
             {
                 data = data.Where(u => (u.FirstName + " " + u.LastName).ToLower().Contains(name.ToLower()));
@@ -158,11 +149,11 @@ namespace DatabasesCourse.Tabs
             if (filtered)
             {
                 dgvTable.DataSource = (from x in data
-                    select new UserProjection(x.Id, x.FirstName, x.LastName, x.Credentials.Email,
-                        x.Credentials.Password, x.Credentials.Role)).ToList();
+                                       select new UserProjection(x.Id, x.FirstName, x.LastName, x.Credentials.Email,
+                                           x.Credentials.Password, x.Credentials.Role)).ToList();
                 comboBoxRole.SelectedItem = null;
             }
-                
+
         }
 
         private void buttonReset_Click(object sender, EventArgs e)

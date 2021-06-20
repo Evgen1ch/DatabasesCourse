@@ -1,16 +1,14 @@
-﻿using System;
+﻿using DatabasesCourse.DatabaseModel.Entities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel.Entities;
-using DatabasesCourse.Tabs;
 
 namespace DatabasesCourse
 {
     public partial class MainForm : Form
     {
         private List<Control> _tabs;
-        
         public MainForm()
         {
             InitializeComponent();
@@ -20,6 +18,10 @@ namespace DatabasesCourse
             buttonCustomers.Visible = buttonCustomers.Enabled = false;
             buttonOrders.Visible = buttonOrders.Enabled = false;
             buttonProducts.Visible = buttonProducts.Enabled = false;
+
+            buttonManufacturers.Visible = buttonManufacturers.Enabled = false;
+            buttonSupplies.Visible = buttonSupplies.Enabled = false;
+            buttonActivity.Visible = buttonActivity.Enabled = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -34,6 +36,9 @@ namespace DatabasesCourse
                 customersTab,
                 usersTab,
                 statisticsTab,
+                manufacturersTab,
+                suppliesTab,
+                activityTab,
             };
         }
 
@@ -45,6 +50,10 @@ namespace DatabasesCourse
             buttonOrders.BackColor = SystemColors.ButtonShadow;
             buttonCustomers.BackColor = SystemColors.ButtonShadow;
             buttonUsers.BackColor = SystemColors.ButtonShadow;
+
+            buttonManufacturers.BackColor = SystemColors.ButtonShadow;
+            buttonSupplies.BackColor = SystemColors.ButtonShadow;
+            buttonActivity.BackColor = SystemColors.ButtonShadow;
         }
 
         public void ToggleTab(UserControl tab)
@@ -64,6 +73,14 @@ namespace DatabasesCourse
                     buttonCustomers.BackColor = pressedButtonColor;
                 if (usersTab.Visible)
                     buttonUsers.BackColor = pressedButtonColor;
+                if (statisticsTab.Visible)
+                    buttonStat1.BackColor = pressedButtonColor;
+                if (manufacturersTab.Visible)
+                    buttonManufacturers.BackColor = pressedButtonColor;
+                if (suppliesTab.Visible)
+                    buttonSupplies.BackColor = pressedButtonColor;
+                if (activityTab.Visible)
+                    buttonActivity.BackColor = pressedButtonColor;
             }
             else
             {
@@ -73,6 +90,11 @@ namespace DatabasesCourse
                 buttonOrders.BackColor = SystemColors.ButtonShadow;
                 buttonCustomers.BackColor = SystemColors.ButtonShadow;
                 buttonUsers.BackColor = SystemColors.ButtonShadow;
+                buttonStat1.BackColor = SystemColors.ButtonShadow;
+                buttonManufacturers.BackColor = SystemColors.ButtonShadow;
+                buttonSupplies.BackColor = SystemColors.ButtonShadow;
+                buttonActivity.BackColor = SystemColors.ButtonShadow;
+
             }
         }
 
@@ -105,18 +127,32 @@ namespace DatabasesCourse
         {
             ToggleTab(statisticsTab);
         }
+        private void buttonManufacturers_Click(object sender, EventArgs e)
+        {
+            ToggleTab(manufacturersTab);
+        }
+
+        private void buttonSupplies_Click(object sender, EventArgs e)
+        {
+            ToggleTab(suppliesTab);
+        }
+
+        private void buttonActivity_Click(object sender, EventArgs e)
+        {
+            ToggleTab(activityTab);
+        }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             HideTabs();
-            Global.CurrentUser = null;
+            AppGlobals.CurrentUser = null;
             Login();
         }
 
         private void Login()
         {
             HideButtons();
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = AppGlobals.LoginForm;
             var result = loginForm.ShowDialog();
 
             if (result != DialogResult.OK)
@@ -125,14 +161,17 @@ namespace DatabasesCourse
                 return;
             }
 
-            Role role = Global.CurrentUser.Credentials.Role;
-            
+            Role role = AppGlobals.CurrentUser.Credentials.Role;
+
             switch (role)
             {
                 case Role.Employee:
                     buttonUsers.Visible = buttonUsers.Enabled = false;
                     buttonCategories.Visible = buttonCategories.Enabled = false;
                     buttonStat1.Visible = buttonStat1.Enabled = false;
+                    buttonActivity.Visible = buttonActivity.Enabled = false;
+                    buttonSupplies.Visible = buttonSupplies.Enabled = false;
+                    buttonManufacturers.Visible = buttonManufacturers.Enabled = false;
 
                     buttonCustomers.Visible = buttonCustomers.Enabled = true;
                     buttonOrders.Visible = buttonOrders.Enabled = true;
@@ -142,15 +181,21 @@ namespace DatabasesCourse
 
                     buttonUsers.Visible = buttonUsers.Enabled = false;
                     buttonStat1.Visible = buttonStat1.Enabled = false;
+                    buttonActivity.Visible = buttonActivity.Enabled = false;
 
                     buttonCategories.Visible = buttonCategories.Enabled = true;
                     buttonCustomers.Visible = buttonCustomers.Enabled = true;
                     buttonOrders.Visible = buttonOrders.Enabled = true;
                     buttonProducts.Visible = buttonProducts.Enabled = true;
+                    buttonSupplies.Visible = buttonSupplies.Enabled = true;
+                    buttonManufacturers.Visible = buttonManufacturers.Enabled = true;
                     break;
                 case Role.Admin:
                     buttonStat1.Visible = buttonStat1.Enabled = true;
                     buttonUsers.Visible = buttonUsers.Enabled = true;
+                    buttonSupplies.Visible = buttonSupplies.Enabled = true;
+                    buttonManufacturers.Visible = buttonManufacturers.Enabled = true;
+                    buttonActivity.Visible = buttonActivity.Enabled = true;
 
                     buttonCategories.Visible = buttonCategories.Enabled = true;
                     buttonCustomers.Visible = buttonCustomers.Enabled = true;
@@ -160,8 +205,8 @@ namespace DatabasesCourse
             }
             ordersTab.SetUserView();
             productsTab.SetUserView();
-            labelCurrentUserInfo.Text = Global.CurrentUser.FirstName + @" " + Global.CurrentUser.LastName + @". Role: " +
-                                        Global.CurrentUser.Credentials.Role;
+            labelCurrentUserInfo.Text = AppGlobals.CurrentUser.FirstName + @" " + AppGlobals.CurrentUser.LastName + @". Role: " +
+                                        AppGlobals.CurrentUser.Credentials.Role;
         }
 
         private void HideButtons()
@@ -172,6 +217,12 @@ namespace DatabasesCourse
             buttonCustomers.Visible = buttonCustomers.Enabled = false;
             buttonOrders.Visible = buttonOrders.Enabled = false;
             buttonProducts.Visible = buttonProducts.Enabled = false;
+
+            buttonManufacturers.Visible = buttonManufacturers.Enabled = false;
+            buttonSupplies.Visible = buttonSupplies.Enabled = false;
+            buttonActivity.Visible = buttonActivity.Enabled = false;
         }
+
+
     }
 }

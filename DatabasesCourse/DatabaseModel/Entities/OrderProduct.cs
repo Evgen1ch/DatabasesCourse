@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DatabasesCourse.DatabaseModel.Entities
+﻿namespace DatabasesCourse.DatabaseModel.Entities
 {
     public class OrderProduct
     {
@@ -14,5 +8,6 @@ namespace DatabasesCourse.DatabaseModel.Entities
         public Order Order { get; set; }
 
         public int Amount { get; set; }
+        public decimal Price { get; set; }
     }
 }
