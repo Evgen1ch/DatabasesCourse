@@ -33,7 +33,9 @@ namespace DatabasesCourse.Tabs
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.panelSearch = new System.Windows.Forms.Panel();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.buttonApplyFilters = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelSearchFirstname = new System.Windows.Forms.Label();
             this.labelSearchPhone = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@ namespace DatabasesCourse.Tabs
             this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateRegistered = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonApplyFilters = new System.Windows.Forms.Button();
-            this.buttonReset = new System.Windows.Forms.Button();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -102,6 +102,16 @@ namespace DatabasesCourse.Tabs
             this.panelSearch.Size = new System.Drawing.Size(200, 421);
             this.panelSearch.TabIndex = 11;
             // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(106, 248);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 7;
+            this.buttonReset.Text = "Reset";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // groupBoxFilter
             // 
             this.groupBoxFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -119,6 +129,16 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabIndex = 6;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
+            // 
+            // buttonApplyFilters
+            // 
+            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 197);
+            this.buttonApplyFilters.Name = "buttonApplyFilters";
+            this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
+            this.buttonApplyFilters.TabIndex = 6;
+            this.buttonApplyFilters.Text = "Apply";
+            this.buttonApplyFilters.UseVisualStyleBackColor = true;
+            this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
             // 
             // textBox1
             // 
@@ -230,26 +250,6 @@ namespace DatabasesCourse.Tabs
             this.DateRegistered.Name = "DateRegistered";
             this.DateRegistered.ReadOnly = true;
             // 
-            // buttonApplyFilters
-            // 
-            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 197);
-            this.buttonApplyFilters.Name = "buttonApplyFilters";
-            this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
-            this.buttonApplyFilters.TabIndex = 6;
-            this.buttonApplyFilters.Text = "Apply";
-            this.buttonApplyFilters.UseVisualStyleBackColor = true;
-            this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
-            // 
-            // buttonReset
-            // 
-            this.buttonReset.Location = new System.Drawing.Point(106, 248);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonReset.TabIndex = 7;
-            this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
             // CustomersTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -261,6 +261,7 @@ namespace DatabasesCourse.Tabs
             this.Controls.Add(this.panelSearch);
             this.Name = "CustomersTab";
             this.Size = new System.Drawing.Size(584, 421);
+            this.Load += new System.EventHandler(this.CustomersTab_Load);
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();

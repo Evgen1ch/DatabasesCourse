@@ -1,12 +1,11 @@
-﻿using DatabasesCourse.CreateForms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
+using DatabasesCourse.Logging;
+using DatabasesCourse.UniversalForms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.Logging;
-using DatabasesCourse.UniversalForms;
 
 namespace DatabasesCourse.Tabs
 {
@@ -18,9 +17,8 @@ namespace DatabasesCourse.Tabs
             InitializeComponent();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void CustomersTab_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
             Context = AppGlobals.Context;
             Context.Customers.Load();
             dgvTable.AutoGenerateColumns = false;
@@ -118,5 +116,6 @@ namespace DatabasesCourse.Tabs
         {
             dgvTable.DataSource = Context.Customers.Local.ToBindingList();
         }
+
     }
 }

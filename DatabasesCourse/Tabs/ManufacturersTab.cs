@@ -1,11 +1,12 @@
 ﻿using DatabasesCourse.CreateForms;
 using DatabasesCourse.DatabaseModel;
+using DatabasesCourse.Logging;
 using DatabasesCourse.UniversalForms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.Logging;
+using DatabasesCourse.DatabaseModel.Entities;
 
 namespace DatabasesCourse.Tabs
 {
@@ -15,13 +16,12 @@ namespace DatabasesCourse.Tabs
         public ManufacturersTab()
         {
             InitializeComponent();
-            Context = AppGlobals.Context;
             dgvTable.AutoGenerateColumns = false;
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void ManufacturersTab_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
+            Context = AppGlobals.Context;
             Context.Manufacturers.Load();
             dgvTable.DataSource = Context.Manufacturers.Local.ToBindingList();
         }
@@ -88,6 +88,8 @@ namespace DatabasesCourse.Tabs
                         MessageBox.Show(
                             @"You can not delete manufacturer beacuse you have products of this manufacturer.",
                             @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var entry = Context.ChangeTracker.Entries<Manufacturer>().FirstOrDefault(c => c.Entity.Id == toDelete.Id && c.State == EntityState.Deleted);
+                        entry.State = EntityState.Unchanged;
                     }
                 }
             }
@@ -121,5 +123,6 @@ namespace DatabasesCourse.Tabs
         {
             dgvTable.DataSource = Context.Manufacturers.Local.ToBindingList();
         }
+
     }
 }

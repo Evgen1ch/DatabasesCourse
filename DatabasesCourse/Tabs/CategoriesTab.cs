@@ -1,13 +1,12 @@
-﻿using DatabasesCourse.CreateForms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
+using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.Logging;
+using DatabasesCourse.UniversalForms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel.Entities;
-using DatabasesCourse.UniversalForms;
 
 namespace DatabasesCourse.Tabs
 {
@@ -98,7 +97,7 @@ namespace DatabasesCourse.Tabs
                     {
                         MessageBox.Show(@"You can not delete category beacuse you have products of this category.",
                             @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        var entry = Context.ChangeTracker.Entries<Category>().FirstOrDefault(c=>c.Entity.Id == toRemove.Id && c.State == EntityState.Deleted);
+                        var entry = Context.ChangeTracker.Entries<Category>().FirstOrDefault(c => c.Entity.Id == toRemove.Id && c.State == EntityState.Deleted);
                         entry.State = EntityState.Unchanged;
                         Sort();
                     }

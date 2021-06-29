@@ -50,7 +50,7 @@ namespace DatabasesCourse
             buttonOrders.BackColor = SystemColors.ButtonShadow;
             buttonCustomers.BackColor = SystemColors.ButtonShadow;
             buttonUsers.BackColor = SystemColors.ButtonShadow;
-
+            buttonStat1.BackColor = SystemColors.ButtonShadow;
             buttonManufacturers.BackColor = SystemColors.ButtonShadow;
             buttonSupplies.BackColor = SystemColors.ButtonShadow;
             buttonActivity.BackColor = SystemColors.ButtonShadow;

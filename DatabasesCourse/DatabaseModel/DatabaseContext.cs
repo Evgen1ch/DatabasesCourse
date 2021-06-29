@@ -23,7 +23,6 @@ namespace DatabasesCourse.DatabaseModel
 
         private DatabaseContext()
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -154,7 +153,7 @@ namespace DatabasesCourse.DatabaseModel
                 .Property(m => m.Name).HasMaxLength(100).IsRequired();
             builder.Entity<Manufacturer>()
                 .Property(m => m.Country).HasMaxLength(50).IsRequired();
-            
+
             //Log entity
             builder.Entity<LogEntry>()
                 .Property(l => l.Details).IsRequired().HasMaxLength(500);

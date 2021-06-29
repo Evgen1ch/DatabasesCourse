@@ -1,5 +1,6 @@
 ﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
 using DatabasesCourse.UniversalForms;
 using System;
 using System.Linq;
@@ -45,6 +46,16 @@ namespace DatabasesCourse.CreateForms
                 if (Action == FormAction.Create)
                     Context.Manufacturers.Add(_model);
                 Context.SaveChanges();
+
+                switch (Action)
+                {
+                    case FormAction.Create:
+                        Logger.Log($"Manufacturer inserted with Id = {_model.Id}", LogAction.Insert);
+                        break;
+                    case FormAction.Update:
+                        Logger.Log($"Manufacturer updated with Id = {_model.Id}", LogAction.Update);
+                        break;
+                }
             }
             catch (Exception ex)
             {

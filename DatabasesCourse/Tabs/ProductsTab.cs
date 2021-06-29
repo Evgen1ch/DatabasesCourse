@@ -1,11 +1,11 @@
 ﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
 using DatabasesCourse.UniversalForms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.Logging;
 
 namespace DatabasesCourse.Tabs
 {
@@ -15,11 +15,11 @@ namespace DatabasesCourse.Tabs
         public ProductsTab()
         {
             InitializeComponent();
+            dgvTable.AutoGenerateColumns = false;
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void ProductsTab_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
             Context = AppGlobals.Context;
             Context.Products.Include(p => p.Category).Load();
 
@@ -28,15 +28,15 @@ namespace DatabasesCourse.Tabs
             UpdateFilters();
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
+        private void ProductsTab_VisibleChanged(object sender, EventArgs e)
         {
-            base.OnVisibleChanged(e);
             if (Visible)
                 UpdateFilters();
         }
 
         public void UpdateFilters()
         {
+            if (Context == null) return;
             comboBoxCategory.Items.Clear();
             comboBoxManufacturer.Items.Clear();
             var categories = Context.Categories.ToList();
@@ -109,7 +109,10 @@ namespace DatabasesCourse.Tabs
                     }
                     catch (Exception)
                     {
-                        //ignore
+                        MessageBox.Show(@"You can not delete product beacuse you have orders with this products.",
+                            @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var entry = Context.ChangeTracker.Entries<Product>().FirstOrDefault(c => c.Entity.Id == toDelete.Id && c.State == EntityState.Deleted);
+                        entry.State = EntityState.Unchanged;
                     }
                 }
             }
@@ -131,7 +134,7 @@ namespace DatabasesCourse.Tabs
                     buttonUpdate.Visible = true;
                     break;
                 case Role.Employee:
-                    buttonAdd.Visible = true;
+                    buttonAdd.Visible = false;
                     buttonDelete.Visible = false;
                     buttonUpdate.Visible = false;
                     break;
@@ -174,5 +177,6 @@ namespace DatabasesCourse.Tabs
             dgvTable.DataSource = Context.Products.Local.ToBindingList();
             comboBoxCategory.SelectedItem = null;
         }
+
     }
 }

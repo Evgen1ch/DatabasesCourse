@@ -14,7 +14,6 @@ namespace DatabasesCourse.Tabs
         public SuppliesTab()
         {
             InitializeComponent();
-            Context = AppGlobals.Context;
 
             dgvTable.AutoGenerateColumns = false;
             comboBoxUser.DisplayMember = "Id";
@@ -22,13 +21,13 @@ namespace DatabasesCourse.Tabs
         }
         private void SuppliesTab_Load(object sender, EventArgs e)
         {
+            Context = AppGlobals.Context;
             Context.Supplies.Load();
             dgvTable.DataSource = Context.Supplies.Local.ToBindingList();
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
+        private void SuppliesTab_VisibleChanged(object sender, EventArgs e)
         {
-            base.OnVisibleChanged(e);
             if (Visible)
             {
                 UpdateDataGridView();
@@ -44,6 +43,7 @@ namespace DatabasesCourse.Tabs
 
         public void UpdateFilters()
         {
+            if (Context == null) return;
             comboBoxUser.Items.Clear();
             comboBoxProduct.Items.Clear();
             var users = Context.Users.ToList();
@@ -128,5 +128,6 @@ namespace DatabasesCourse.Tabs
         {
             dgvTable.DataSource = Context.Supplies.Local.ToBindingList();
         }
+
     }
 }

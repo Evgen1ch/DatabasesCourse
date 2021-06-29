@@ -41,11 +41,11 @@ namespace DatabasesCourse.Tabs
             this.label2 = new System.Windows.Forms.Label();
             this.groupBoxStat2 = new System.Windows.Forms.GroupBox();
             this.buttonOrdersStatisticesUpdate = new System.Windows.Forms.Button();
-            this.labelStatsOrders3Value = new System.Windows.Forms.Label();
+            this.labelStatsOrdersTotalMoneyValue = new System.Windows.Forms.Label();
             this.labelStatsOrders3 = new System.Windows.Forms.Label();
-            this.labelStatsOrders2Value = new System.Windows.Forms.Label();
+            this.labelStatsOrdersTotalMonthValue = new System.Windows.Forms.Label();
             this.labelStatsOrders2 = new System.Windows.Forms.Label();
-            this.labelOrdersStat1Value = new System.Windows.Forms.Label();
+            this.labelOrdersStatTotalValue = new System.Windows.Forms.Label();
             this.labelOrdersStat1 = new System.Windows.Forms.Label();
             this.groupBoxStat1 = new System.Windows.Forms.GroupBox();
             this.buttonUpdateProdStat = new System.Windows.Forms.Button();
@@ -80,6 +80,7 @@ namespace DatabasesCourse.Tabs
             // 
             // buttonUsersstatisticsUpdate
             // 
+            this.buttonUsersstatisticsUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUsersstatisticsUpdate.Location = new System.Drawing.Point(483, 16);
             this.buttonUsersstatisticsUpdate.Name = "buttonUsersstatisticsUpdate";
             this.buttonUsersstatisticsUpdate.Size = new System.Drawing.Size(75, 23);
@@ -165,11 +166,11 @@ namespace DatabasesCourse.Tabs
             this.groupBoxStat2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxStat2.Controls.Add(this.buttonOrdersStatisticesUpdate);
-            this.groupBoxStat2.Controls.Add(this.labelStatsOrders3Value);
+            this.groupBoxStat2.Controls.Add(this.labelStatsOrdersTotalMoneyValue);
             this.groupBoxStat2.Controls.Add(this.labelStatsOrders3);
-            this.groupBoxStat2.Controls.Add(this.labelStatsOrders2Value);
+            this.groupBoxStat2.Controls.Add(this.labelStatsOrdersTotalMonthValue);
             this.groupBoxStat2.Controls.Add(this.labelStatsOrders2);
-            this.groupBoxStat2.Controls.Add(this.labelOrdersStat1Value);
+            this.groupBoxStat2.Controls.Add(this.labelOrdersStatTotalValue);
             this.groupBoxStat2.Controls.Add(this.labelOrdersStat1);
             this.groupBoxStat2.Location = new System.Drawing.Point(9, 115);
             this.groupBoxStat2.Name = "groupBoxStat2";
@@ -180,6 +181,7 @@ namespace DatabasesCourse.Tabs
             // 
             // buttonOrdersStatisticesUpdate
             // 
+            this.buttonOrdersStatisticesUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOrdersStatisticesUpdate.Location = new System.Drawing.Point(483, 15);
             this.buttonOrdersStatisticesUpdate.Name = "buttonOrdersStatisticesUpdate";
             this.buttonOrdersStatisticesUpdate.Size = new System.Drawing.Size(75, 23);
@@ -188,14 +190,14 @@ namespace DatabasesCourse.Tabs
             this.buttonOrdersStatisticesUpdate.UseVisualStyleBackColor = true;
             this.buttonOrdersStatisticesUpdate.Click += new System.EventHandler(this.buttonOrderStats_Click);
             // 
-            // labelStatsOrders3Value
+            // labelStatsOrdersTotalMoneyValue
             // 
-            this.labelStatsOrders3Value.AutoSize = true;
-            this.labelStatsOrders3Value.Location = new System.Drawing.Point(154, 70);
-            this.labelStatsOrders3Value.Name = "labelStatsOrders3Value";
-            this.labelStatsOrders3Value.Size = new System.Drawing.Size(61, 15);
-            this.labelStatsOrders3Value.TabIndex = 10;
-            this.labelStatsOrders3Value.Text = "undefined";
+            this.labelStatsOrdersTotalMoneyValue.AutoSize = true;
+            this.labelStatsOrdersTotalMoneyValue.Location = new System.Drawing.Point(154, 70);
+            this.labelStatsOrdersTotalMoneyValue.Name = "labelStatsOrdersTotalMoneyValue";
+            this.labelStatsOrdersTotalMoneyValue.Size = new System.Drawing.Size(61, 15);
+            this.labelStatsOrdersTotalMoneyValue.TabIndex = 10;
+            this.labelStatsOrdersTotalMoneyValue.Text = "undefined";
             // 
             // labelStatsOrders3
             // 
@@ -206,14 +208,14 @@ namespace DatabasesCourse.Tabs
             this.labelStatsOrders3.TabIndex = 9;
             this.labelStatsOrders3.Text = "Total profit this month:";
             // 
-            // labelStatsOrders2Value
+            // labelStatsOrdersTotalMonthValue
             // 
-            this.labelStatsOrders2Value.AutoSize = true;
-            this.labelStatsOrders2Value.Location = new System.Drawing.Point(154, 45);
-            this.labelStatsOrders2Value.Name = "labelStatsOrders2Value";
-            this.labelStatsOrders2Value.Size = new System.Drawing.Size(61, 15);
-            this.labelStatsOrders2Value.TabIndex = 8;
-            this.labelStatsOrders2Value.Text = "undefined";
+            this.labelStatsOrdersTotalMonthValue.AutoSize = true;
+            this.labelStatsOrdersTotalMonthValue.Location = new System.Drawing.Point(154, 45);
+            this.labelStatsOrdersTotalMonthValue.Name = "labelStatsOrdersTotalMonthValue";
+            this.labelStatsOrdersTotalMonthValue.Size = new System.Drawing.Size(61, 15);
+            this.labelStatsOrdersTotalMonthValue.TabIndex = 8;
+            this.labelStatsOrdersTotalMonthValue.Text = "undefined";
             // 
             // labelStatsOrders2
             // 
@@ -224,14 +226,14 @@ namespace DatabasesCourse.Tabs
             this.labelStatsOrders2.TabIndex = 7;
             this.labelStatsOrders2.Text = "Total orders this month:";
             // 
-            // labelOrdersStat1Value
+            // labelOrdersStatTotalValue
             // 
-            this.labelOrdersStat1Value.AutoSize = true;
-            this.labelOrdersStat1Value.Location = new System.Drawing.Point(154, 19);
-            this.labelOrdersStat1Value.Name = "labelOrdersStat1Value";
-            this.labelOrdersStat1Value.Size = new System.Drawing.Size(61, 15);
-            this.labelOrdersStat1Value.TabIndex = 6;
-            this.labelOrdersStat1Value.Text = "undefined";
+            this.labelOrdersStatTotalValue.AutoSize = true;
+            this.labelOrdersStatTotalValue.Location = new System.Drawing.Point(154, 19);
+            this.labelOrdersStatTotalValue.Name = "labelOrdersStatTotalValue";
+            this.labelOrdersStatTotalValue.Size = new System.Drawing.Size(61, 15);
+            this.labelOrdersStatTotalValue.TabIndex = 6;
+            this.labelOrdersStatTotalValue.Text = "undefined";
             // 
             // labelOrdersStat1
             // 
@@ -260,6 +262,7 @@ namespace DatabasesCourse.Tabs
             // 
             // buttonUpdateProdStat
             // 
+            this.buttonUpdateProdStat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdateProdStat.Location = new System.Drawing.Point(483, 16);
             this.buttonUpdateProdStat.Name = "buttonUpdateProdStat";
             this.buttonUpdateProdStat.Size = new System.Drawing.Size(75, 23);
@@ -334,11 +337,11 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.Label labelProdStat1Value;
         private System.Windows.Forms.Label labelProdStat2;
         private System.Windows.Forms.Label labelProdStat1;
-        private System.Windows.Forms.Label labelStatsOrders3Value;
+        private System.Windows.Forms.Label labelStatsOrdersTotalMoneyValue;
         private System.Windows.Forms.Label labelStatsOrders3;
-        private System.Windows.Forms.Label labelStatsOrders2Value;
+        private System.Windows.Forms.Label labelStatsOrdersTotalMonthValue;
         private System.Windows.Forms.Label labelStatsOrders2;
-        private System.Windows.Forms.Label labelOrdersStat1Value;
+        private System.Windows.Forms.Label labelOrdersStatTotalValue;
         private System.Windows.Forms.Label labelOrdersStat1;
         private System.Windows.Forms.Button buttonUsersstatisticsUpdate;
         private System.Windows.Forms.Label labelUserStat4;

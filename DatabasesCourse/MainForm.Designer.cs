@@ -91,7 +91,7 @@ namespace DatabasesCourse
             this.buttonStat1.Name = "buttonStat1";
             this.buttonStat1.Size = new System.Drawing.Size(200, 46);
             this.buttonStat1.TabIndex = 5;
-            this.buttonStat1.Text = "Some statistics 1";
+            this.buttonStat1.Text = "Statistics";
             this.buttonStat1.UseVisualStyleBackColor = false;
             this.buttonStat1.Click += new System.EventHandler(this.buttonStat1_Click);
             // 
@@ -327,6 +327,7 @@ namespace DatabasesCourse
             this.manufacturersTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.manufacturersTab.Context = null;
             this.manufacturersTab.Location = new System.Drawing.Point(200, 40);
             this.manufacturersTab.Name = "manufacturersTab";
             this.manufacturersTab.Size = new System.Drawing.Size(584, 421);
@@ -338,6 +339,7 @@ namespace DatabasesCourse
             this.suppliesTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.suppliesTab.Context = null;
             this.suppliesTab.Location = new System.Drawing.Point(200, 40);
             this.suppliesTab.Name = "suppliesTab";
             this.suppliesTab.Size = new System.Drawing.Size(584, 421);
@@ -346,9 +348,9 @@ namespace DatabasesCourse
             // 
             // activityTab
             // 
-            this.activityTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.activityTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                                                                             | System.Windows.Forms.AnchorStyles.Left)
+                                                                            | System.Windows.Forms.AnchorStyles.Right)));
             this.activityTab.Location = new System.Drawing.Point(200, 40);
             this.activityTab.Name = "activityTab";
             this.activityTab.Size = new System.Drawing.Size(584, 421);

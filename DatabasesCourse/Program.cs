@@ -14,7 +14,14 @@ namespace DatabasesCourse
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(AppGlobals.MainForm);
+            try
+            {
+                Application.Run(AppGlobals.MainForm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to connect to database. Please contact your IT administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

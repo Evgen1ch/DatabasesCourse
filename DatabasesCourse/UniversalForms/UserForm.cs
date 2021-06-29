@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.Logging;
 using DatabasesCourse.Validators;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DatabasesCourse.UniversalForms
 {
@@ -45,7 +45,7 @@ namespace DatabasesCourse.UniversalForms
                     break;
             }
 
-            
+
         }
 
         private void buttonSubmit_Click(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace DatabasesCourse.UniversalForms
 
             string message = _userValidator.ValidateWithString(_userModel) +
                              _credentialsValidator.ValidateWithString(_credentialsModel);
-            
+
             if (message.Length > 0)
             {
                 MessageBox.Show(message, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -85,7 +85,7 @@ namespace DatabasesCourse.UniversalForms
                         Logger.Log($"User updated with Id = {_userModel.Id} and CredentialsId = {_credentialsModel.Id}", LogAction.Insert);
                         break;
                 }
-                
+
             }
             catch (Exception ex)
             {

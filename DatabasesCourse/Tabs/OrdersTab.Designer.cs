@@ -34,6 +34,7 @@ namespace DatabasesCourse.Tabs
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.buttonApplyFilters = new System.Windows.Forms.Button();
@@ -46,7 +47,13 @@ namespace DatabasesCourse.Tabs
             this.labelSearchCustomerPhone = new System.Windows.Forms.Label();
             this.labelSearchCategory = new System.Windows.Forms.Label();
             this.dgvTable = new System.Windows.Forms.DataGridView();
-            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CustomerFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CustomerLName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CustomerPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -121,6 +128,16 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabIndex = 10;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
+            // 
+            // checkBoxUseDate
+            // 
+            this.checkBoxUseDate.AutoSize = true;
+            this.checkBoxUseDate.Location = new System.Drawing.Point(11, 200);
+            this.checkBoxUseDate.Name = "checkBoxUseDate";
+            this.checkBoxUseDate.Size = new System.Drawing.Size(114, 19);
+            this.checkBoxUseDate.TabIndex = 14;
+            this.checkBoxUseDate.Text = "Use date bounds";
+            this.checkBoxUseDate.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -228,6 +245,14 @@ namespace DatabasesCourse.Tabs
             this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.TotalCost,
+            this.UserId,
+            this.CustomerFName,
+            this.CustomerLName,
+            this.CustomerPhone,
+            this.Date});
             this.dgvTable.Location = new System.Drawing.Point(0, 37);
             this.dgvTable.Margin = new System.Windows.Forms.Padding(0);
             this.dgvTable.MultiSelect = false;
@@ -239,15 +264,54 @@ namespace DatabasesCourse.Tabs
             this.dgvTable.TabIndex = 16;
             this.dgvTable.DoubleClick += new System.EventHandler(this.dgvTable_DoubleClick);
             // 
-            // checkBoxUseDate
+            // Id
             // 
-            this.checkBoxUseDate.AutoSize = true;
-            this.checkBoxUseDate.Location = new System.Drawing.Point(11, 200);
-            this.checkBoxUseDate.Name = "checkBoxUseDate";
-            this.checkBoxUseDate.Size = new System.Drawing.Size(114, 19);
-            this.checkBoxUseDate.TabIndex = 14;
-            this.checkBoxUseDate.Text = "Use date bounds";
-            this.checkBoxUseDate.UseVisualStyleBackColor = true;
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // TotalCost
+            // 
+            this.TotalCost.DataPropertyName = "TotalCost";
+            this.TotalCost.HeaderText = "TotalCost";
+            this.TotalCost.Name = "TotalCost";
+            this.TotalCost.ReadOnly = true;
+            // 
+            // UserId
+            // 
+            this.UserId.DataPropertyName = "UserId";
+            this.UserId.HeaderText = "User";
+            this.UserId.Name = "UserId";
+            this.UserId.ReadOnly = true;
+            // 
+            // CustomerFName
+            // 
+            this.CustomerFName.DataPropertyName = "CustomerFirstName";
+            this.CustomerFName.HeaderText = "Customer first name";
+            this.CustomerFName.Name = "CustomerFName";
+            this.CustomerFName.ReadOnly = true;
+            // 
+            // CustomerLName
+            // 
+            this.CustomerLName.DataPropertyName = "CustomerLastName";
+            this.CustomerLName.HeaderText = "Customer last name";
+            this.CustomerLName.Name = "CustomerLName";
+            this.CustomerLName.ReadOnly = true;
+            // 
+            // CustomerPhone
+            // 
+            this.CustomerPhone.DataPropertyName = "CustomerPhone";
+            this.CustomerPhone.HeaderText = "Phone";
+            this.CustomerPhone.Name = "CustomerPhone";
+            this.CustomerPhone.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "DateTime";
+            this.Date.HeaderText = "DateTime";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // OrdersTab
             // 
@@ -259,6 +323,8 @@ namespace DatabasesCourse.Tabs
             this.Controls.Add(this.panelSearch);
             this.Name = "OrdersTab";
             this.Size = new System.Drawing.Size(584, 421);
+            this.Load += new System.EventHandler(this.OrdersTab_Load);
+            this.VisibleChanged += new System.EventHandler(this.OrdersTab_VisibleChanged);
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
@@ -287,5 +353,12 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.Label labelDate1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.CheckBox checkBoxUseDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CustomerFName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CustomerLName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CustomerPhone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
     }
 }

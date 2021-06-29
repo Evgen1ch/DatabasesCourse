@@ -33,6 +33,7 @@ namespace DatabasesCourse.Tabs
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.comboBoxManufacturer = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.buttonApplyFilters = new System.Windows.Forms.Button();
@@ -40,11 +41,17 @@ namespace DatabasesCourse.Tabs
             this.labelSearchName = new System.Windows.Forms.Label();
             this.labelSearchCategory = new System.Windows.Forms.Label();
             this.dgvTable = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProdName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ManufacturerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxManufacturer = new System.Windows.Forms.ComboBox();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -91,6 +98,16 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabIndex = 8;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
+            // 
+            // comboBoxManufacturer
+            // 
+            this.comboBoxManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.comboBoxManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxManufacturer.FormattingEnabled = true;
+            this.comboBoxManufacturer.Location = new System.Drawing.Point(11, 157);
+            this.comboBoxManufacturer.Name = "comboBoxManufacturer";
+            this.comboBoxManufacturer.Size = new System.Drawing.Size(168, 23);
+            this.comboBoxManufacturer.TabIndex = 10;
             // 
             // label1
             // 
@@ -155,6 +172,14 @@ namespace DatabasesCourse.Tabs
             this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.Barcode,
+            this.ProdName,
+            this.ManufacturerId,
+            this.Category,
+            this.Price,
+            this.Amount});
             this.dgvTable.Location = new System.Drawing.Point(0, 37);
             this.dgvTable.Margin = new System.Windows.Forms.Padding(0);
             this.dgvTable.MultiSelect = false;
@@ -164,6 +189,55 @@ namespace DatabasesCourse.Tabs
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTable.Size = new System.Drawing.Size(384, 384);
             this.dgvTable.TabIndex = 1;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
+            // Barcode
+            // 
+            this.Barcode.DataPropertyName = "BarCode";
+            this.Barcode.HeaderText = "Barcode";
+            this.Barcode.Name = "Barcode";
+            this.Barcode.ReadOnly = true;
+            // 
+            // ProdName
+            // 
+            this.ProdName.DataPropertyName = "Name";
+            this.ProdName.HeaderText = "Name";
+            this.ProdName.Name = "ProdName";
+            this.ProdName.ReadOnly = true;
+            // 
+            // ManufacturerId
+            // 
+            this.ManufacturerId.DataPropertyName = "ManufacturerId";
+            this.ManufacturerId.HeaderText = "Manufacturer";
+            this.ManufacturerId.Name = "ManufacturerId";
+            this.ManufacturerId.ReadOnly = true;
+            // 
+            // Category
+            // 
+            this.Category.DataPropertyName = "CategoryId";
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            this.Amount.DataPropertyName = "Amount";
+            this.Amount.HeaderText = "Amount";
+            this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
             // 
             // buttonUpdate
             // 
@@ -201,16 +275,6 @@ namespace DatabasesCourse.Tabs
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // comboBoxManufacturer
-            // 
-            this.comboBoxManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxManufacturer.FormattingEnabled = true;
-            this.comboBoxManufacturer.Location = new System.Drawing.Point(11, 157);
-            this.comboBoxManufacturer.Name = "comboBoxManufacturer";
-            this.comboBoxManufacturer.Size = new System.Drawing.Size(168, 23);
-            this.comboBoxManufacturer.TabIndex = 10;
-            // 
             // ProductsTab
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -222,6 +286,8 @@ namespace DatabasesCourse.Tabs
             this.Controls.Add(this.panelSearch);
             this.Name = "ProductsTab";
             this.Size = new System.Drawing.Size(584, 421);
+            this.Load += new System.EventHandler(this.ProductsTab_Load);
+            this.VisibleChanged += new System.EventHandler(this.ProductsTab_VisibleChanged);
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
@@ -248,5 +314,12 @@ namespace DatabasesCourse.Tabs
         private System.Windows.Forms.ComboBox comboBoxCategory;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxManufacturer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProdName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ManufacturerId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
     }
 }

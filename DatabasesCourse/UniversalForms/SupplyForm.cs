@@ -1,5 +1,6 @@
 ﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
 using DatabasesCourse.Validators;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -82,6 +83,16 @@ namespace DatabasesCourse.UniversalForms
                 if (Action == FormAction.Create)
                     Context.Supplies.Add(_model);
                 Context.SaveChanges();
+
+                switch (Action)
+                {
+                    case FormAction.Create:
+                        Logger.Log($"Supply inserted with Id = {_model.Id}", LogAction.Insert);
+                        break;
+                    case FormAction.Update:
+                        Logger.Log($"Supply updated with Id = {_model.Id}", LogAction.Insert);
+                        break;
+                }
             }
             catch (Exception ex)
             {

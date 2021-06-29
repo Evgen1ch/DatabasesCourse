@@ -39,11 +39,11 @@ namespace DatabasesCourse.Tabs
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
-            this.buttonApplyFilters = new System.Windows.Forms.Button();
-            this.textBoxSearchName = new System.Windows.Forms.TextBox();
-            this.labelSearchName = new System.Windows.Forms.Label();
             this.textBoxSearchCountry = new System.Windows.Forms.TextBox();
             this.labelCountry = new System.Windows.Forms.Label();
+            this.textBoxSearchName = new System.Windows.Forms.TextBox();
+            this.labelSearchName = new System.Windows.Forms.Label();
+            this.buttonApplyFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
@@ -170,15 +170,21 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
             // 
-            // buttonApplyFilters
+            // textBoxSearchCountry
             // 
-            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 243);
-            this.buttonApplyFilters.Name = "buttonApplyFilters";
-            this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
-            this.buttonApplyFilters.TabIndex = 6;
-            this.buttonApplyFilters.Text = "Apply";
-            this.buttonApplyFilters.UseVisualStyleBackColor = true;
-            this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
+            this.textBoxSearchCountry.Location = new System.Drawing.Point(11, 98);
+            this.textBoxSearchCountry.Name = "textBoxSearchCountry";
+            this.textBoxSearchCountry.Size = new System.Drawing.Size(168, 23);
+            this.textBoxSearchCountry.TabIndex = 9;
+            // 
+            // labelCountry
+            // 
+            this.labelCountry.AutoSize = true;
+            this.labelCountry.Location = new System.Drawing.Point(11, 80);
+            this.labelCountry.Name = "labelCountry";
+            this.labelCountry.Size = new System.Drawing.Size(53, 15);
+            this.labelCountry.TabIndex = 10;
+            this.labelCountry.Text = "Country:";
             // 
             // textBoxSearchName
             // 
@@ -196,21 +202,15 @@ namespace DatabasesCourse.Tabs
             this.labelSearchName.TabIndex = 8;
             this.labelSearchName.Text = "Name:";
             // 
-            // textBoxSearchCountry
+            // buttonApplyFilters
             // 
-            this.textBoxSearchCountry.Location = new System.Drawing.Point(11, 98);
-            this.textBoxSearchCountry.Name = "textBoxSearchCountry";
-            this.textBoxSearchCountry.Size = new System.Drawing.Size(168, 23);
-            this.textBoxSearchCountry.TabIndex = 9;
-            // 
-            // labelCountry
-            // 
-            this.labelCountry.AutoSize = true;
-            this.labelCountry.Location = new System.Drawing.Point(11, 80);
-            this.labelCountry.Name = "labelCountry";
-            this.labelCountry.Size = new System.Drawing.Size(53, 15);
-            this.labelCountry.TabIndex = 10;
-            this.labelCountry.Text = "Country:";
+            this.buttonApplyFilters.Location = new System.Drawing.Point(104, 243);
+            this.buttonApplyFilters.Name = "buttonApplyFilters";
+            this.buttonApplyFilters.Size = new System.Drawing.Size(75, 23);
+            this.buttonApplyFilters.TabIndex = 6;
+            this.buttonApplyFilters.Text = "Apply";
+            this.buttonApplyFilters.UseVisualStyleBackColor = true;
+            this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
             // 
             // ManufacturersTab
             // 
@@ -223,6 +223,7 @@ namespace DatabasesCourse.Tabs
             this.Controls.Add(this.panelSearch);
             this.Name = "ManufacturersTab";
             this.Size = new System.Drawing.Size(584, 421);
+            this.Load += new System.EventHandler(this.ManufacturersTab_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);

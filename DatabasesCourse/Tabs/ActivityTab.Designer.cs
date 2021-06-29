@@ -38,6 +38,9 @@ namespace DatabasesCourse.Tabs
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonReset = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.labelEndDate = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.labelDate = new System.Windows.Forms.Label();
             this.comboBoxAction = new System.Windows.Forms.ComboBox();
@@ -45,9 +48,6 @@ namespace DatabasesCourse.Tabs
             this.labelAction = new System.Windows.Forms.Label();
             this.labelSearchUser = new System.Windows.Forms.Label();
             this.buttonApplyFilters = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.labelEndDate = new System.Windows.Forms.Label();
-            this.checkBoxUseDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.panelSearch.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
@@ -159,6 +159,32 @@ namespace DatabasesCourse.Tabs
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filters";
             // 
+            // checkBoxUseDate
+            // 
+            this.checkBoxUseDate.AutoSize = true;
+            this.checkBoxUseDate.Location = new System.Drawing.Point(11, 149);
+            this.checkBoxUseDate.Name = "checkBoxUseDate";
+            this.checkBoxUseDate.Size = new System.Drawing.Size(114, 19);
+            this.checkBoxUseDate.TabIndex = 21;
+            this.checkBoxUseDate.Text = "Use date bounds";
+            this.checkBoxUseDate.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(11, 243);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(168, 23);
+            this.dateTimePicker2.TabIndex = 20;
+            // 
+            // labelEndDate
+            // 
+            this.labelEndDate.AutoSize = true;
+            this.labelEndDate.Location = new System.Drawing.Point(11, 224);
+            this.labelEndDate.Name = "labelEndDate";
+            this.labelEndDate.Size = new System.Drawing.Size(56, 15);
+            this.labelEndDate.TabIndex = 19;
+            this.labelEndDate.Text = "End date:";
+            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(11, 198);
@@ -219,32 +245,6 @@ namespace DatabasesCourse.Tabs
             this.buttonApplyFilters.UseVisualStyleBackColor = true;
             this.buttonApplyFilters.Click += new System.EventHandler(this.buttonApplyFilters_Click);
             // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(11, 243);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(168, 23);
-            this.dateTimePicker2.TabIndex = 20;
-            // 
-            // labelEndDate
-            // 
-            this.labelEndDate.AutoSize = true;
-            this.labelEndDate.Location = new System.Drawing.Point(11, 224);
-            this.labelEndDate.Name = "labelEndDate";
-            this.labelEndDate.Size = new System.Drawing.Size(56, 15);
-            this.labelEndDate.TabIndex = 19;
-            this.labelEndDate.Text = "End date:";
-            // 
-            // checkBoxUseDate
-            // 
-            this.checkBoxUseDate.AutoSize = true;
-            this.checkBoxUseDate.Location = new System.Drawing.Point(11, 149);
-            this.checkBoxUseDate.Name = "checkBoxUseDate";
-            this.checkBoxUseDate.Size = new System.Drawing.Size(114, 19);
-            this.checkBoxUseDate.TabIndex = 21;
-            this.checkBoxUseDate.Text = "Use date bounds";
-            this.checkBoxUseDate.UseVisualStyleBackColor = true;
-            // 
             // ActivityTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -254,6 +254,7 @@ namespace DatabasesCourse.Tabs
             this.Name = "ActivityTab";
             this.Size = new System.Drawing.Size(584, 421);
             this.Load += new System.EventHandler(this.ActivityTab_Load);
+            this.VisibleChanged += new System.EventHandler(this.ActivityTab_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);

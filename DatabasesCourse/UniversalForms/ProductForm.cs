@@ -1,5 +1,6 @@
 ﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
 using DatabasesCourse.Validators;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -59,7 +60,7 @@ namespace DatabasesCourse.UniversalForms
             var name = textBoxName.Text.Trim();
             var category = comboBoxCategory.SelectedItem as Category;
             var price = numericUpDownPrice.Value;
-            
+
             if (Action == FormAction.Create || _model.BarCode != barcode)
             {
                 var codes = (from product in Context.Products where product.BarCode == barcode select product.BarCode).Count();
@@ -89,6 +90,16 @@ namespace DatabasesCourse.UniversalForms
                 if (Action == FormAction.Create)
                     Context.Products.Add(_model);
                 Context.SaveChanges();
+
+                switch (Action)
+                {
+                    case FormAction.Create:
+                        Logger.Log($"Product inserted with Id = {_model.Id}", LogAction.Insert);
+                        break;
+                    case FormAction.Update:
+                        Logger.Log($"Product updated with Id = {_model.Id}", LogAction.Update);
+                        break;
+                }
             }
             catch (Exception ex)
             {

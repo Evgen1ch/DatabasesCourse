@@ -2,11 +2,11 @@
 using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.DetailsForms;
+using DatabasesCourse.Logging;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.Logging;
 
 namespace DatabasesCourse.Tabs
 {
@@ -49,9 +49,8 @@ namespace DatabasesCourse.Tabs
             InitializeComponent();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private void OrdersTab_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
             Context = AppGlobals.Context;
             Context.Orders.Load();
             LoadTableData();
@@ -63,6 +62,7 @@ namespace DatabasesCourse.Tabs
             }
             dateTimePicker1.Value = DateTime.Now.AddDays(-30);
             dateTimePicker1.MaxDate = DateTime.Today;
+            dgvTable.AutoGenerateColumns = false;
         }
 
         public void UpdateDataGridView()
@@ -72,9 +72,10 @@ namespace DatabasesCourse.Tabs
 
         private void LoadTableData()
         {
-            dgvTable.DataSource = (from order
+            dgvTable.DataSource = (
+                    from order
                     in Context.Orders
-                                   select new OrderProjection(order.Id, order.DateTime, order.TotalCost, order.Customer.FirstName, order.Customer.LastName,
+                    select new OrderProjection(order.Id, order.DateTime, order.TotalCost, order.Customer.FirstName, order.Customer.LastName,
                                                       order.Customer.PhoneNumber, order.UserId)).ToList();
         }
 
@@ -124,9 +125,9 @@ namespace DatabasesCourse.Tabs
                         Logger.Log($"Deleted Order with id = {orderToDelete.Id}", LogAction.Remove);
                         UpdateDataGridView();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        //ignore
+                        MessageBox.Show($"Something went wrong. Exception: {ex.Message}");
                     }
                 }
             }
@@ -204,6 +205,13 @@ namespace DatabasesCourse.Tabs
             LoadTableData();
         }
 
-
+        private void OrdersTab_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible && Context != null)
+            {
+                UpdateDataGridView();
+                
+            }
+        }
     }
 }

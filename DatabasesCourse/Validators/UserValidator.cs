@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DatabasesCourse.DatabaseModel.Entities;
 using System.Text;
-using System.Threading.Tasks;
-using DatabasesCourse.DatabaseModel.Entities;
 
 namespace DatabasesCourse.Validators
 {
-    class UserValidator: IValidator<User>
+    class UserValidator : IValidator<User>
     {
         public string ValidateWithString(User entity)
         {

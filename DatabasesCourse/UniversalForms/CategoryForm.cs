@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.Logging;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DatabasesCourse.UniversalForms
 {
@@ -55,7 +49,7 @@ namespace DatabasesCourse.UniversalForms
             {
                 if (Action == FormAction.Create)
                     Context.Categories.Add(_model);
-                
+
                 Context.SaveChanges();
                 switch (Action)
                 {
@@ -66,7 +60,7 @@ namespace DatabasesCourse.UniversalForms
                         Logger.Log($"Category updated with id: {_model.Id}", LogAction.Update);
                         break;
                 }
-                
+
             }
             catch (Exception ex)
             {

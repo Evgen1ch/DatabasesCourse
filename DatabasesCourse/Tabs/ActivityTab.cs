@@ -36,9 +36,8 @@ namespace DatabasesCourse.Tabs
                 dgvTable.Sort(idColumn, ListSortDirection.Ascending);
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
+        private void ActivityTab_VisibleChanged(object sender, EventArgs e)
         {
-            base.OnVisibleChanged(e);
             if (Visible)
             {
                 UpdateDataGridView();
@@ -95,5 +94,7 @@ namespace DatabasesCourse.Tabs
         {
             dgvTable.DataSource = Context.Log.Local.ToBindingList();
         }
+
+
     }
 }

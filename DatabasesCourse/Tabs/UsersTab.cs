@@ -1,12 +1,11 @@
-﻿using DatabasesCourse.CreateForms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
+using DatabasesCourse.Logging;
+using DatabasesCourse.UniversalForms;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using DatabasesCourse.Logging;
-using DatabasesCourse.UniversalForms;
 
 namespace DatabasesCourse.Tabs
 {
@@ -116,7 +115,7 @@ namespace DatabasesCourse.Tabs
                         //ignore
                     }
                 }
-                
+
             }
         }
 

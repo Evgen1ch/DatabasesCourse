@@ -75,7 +75,7 @@ namespace DatabasesCourse.CreateForms
             foreach (var i in _selectedList)
             {
                 _model.TotalCost += i.Key.Price * i.Value;
-                _model.OrdersProducts.Add(new OrderProduct { Product = i.Key, Amount = i.Value , Price = i.Key.Price});
+                _model.OrdersProducts.Add(new OrderProduct { Product = i.Key, Amount = i.Value, Price = i.Key.Price });
                 i.Key.Amount -= i.Value;
             }
 

@@ -282,6 +282,7 @@ namespace DatabasesCourse.Tabs
             this.Name = "SuppliesTab";
             this.Size = new System.Drawing.Size(584, 421);
             this.Load += new System.EventHandler(this.SuppliesTab_Load);
+            this.VisibleChanged += new System.EventHandler(this.SuppliesTab_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.panelSearch.ResumeLayout(false);
             this.groupBoxFilter.ResumeLayout(false);

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using DatabasesCourse.DatabaseModel;
+﻿using DatabasesCourse.DatabaseModel;
 using DatabasesCourse.DatabaseModel.Entities;
 using DatabasesCourse.Logging;
 using DatabasesCourse.Validators;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DatabasesCourse.UniversalForms
 {
@@ -42,7 +42,7 @@ namespace DatabasesCourse.UniversalForms
             _model.FirstName = textBoxFirstName.Text.Trim();
             _model.LastName = textBoxLastName.Text.Trim();
             _model.PhoneNumber = textBoxPhone.Text.Trim();
-            if(Action == FormAction.Create)
+            if (Action == FormAction.Create)
                 _model.DateTimeRegistered = DateTime.Now;
 
             var message = _validator.ValidateWithString(_model);
@@ -54,7 +54,7 @@ namespace DatabasesCourse.UniversalForms
 
             try
             {
-                if(Action == FormAction.Create)
+                if (Action == FormAction.Create)
                     Context.Customers.Add(_model);
                 Context.SaveChanges();
                 switch (Action)
@@ -66,7 +66,7 @@ namespace DatabasesCourse.UniversalForms
                         Logger.Log($"Customer updated with Id = {_model.Id}", LogAction.Insert);
                         break;
                 }
-                
+
             }
             catch (Exception ex)
             {
